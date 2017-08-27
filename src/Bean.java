@@ -14,7 +14,7 @@ public class Bean implements Serializable {
 	private Image paddle;
 	private final int BALL_WIDTH = 50;
 	private final int BALL_HEIGHT = 50;
-	private final int PADDLE_WIDTH = 120;
+	private final int PADDLE_WIDTH = 150;
 	private final int PADDLE_HEIGHT = 20;
 	private static boolean gameIsOn;
 	private static int moveX;

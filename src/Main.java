@@ -2,6 +2,7 @@ import java.awt.Color;
 
 import javax.swing.JFrame;
 
+
 public class Main {
 	public static void main(String args[])
 	{
@@ -16,6 +17,7 @@ public class Main {
 		breakout.setSize(1920,1030);
 		frame.add(breakout);
 		frame.setBackground(Color.YELLOW);
+
 		frame.setVisible(true);
 		breakout.startGame();
 	}

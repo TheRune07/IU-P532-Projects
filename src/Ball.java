@@ -26,6 +26,7 @@ public class Ball implements Observer
 		if(bean.getBy() == 1030){
 			bean.setGameIsOn(false);
 		}
+		
 	}
 	
 	public void registerBall(Bean bean)
