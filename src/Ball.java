@@ -43,19 +43,8 @@ public class Ball implements Observer
 	
 	public void moveBall(Bean bean)
 	{
-		bx = bean.getBx();
-		by = bean.getBy();
-		moveX = bean.getMoveX();
-		moveY = bean.getMoveY();
-		
-		bx = bx + moveX;
-		by = by + moveY;
-		
-		bean.setBx(bx);
-		bean.setBy(by);
-		
-		
-		//return bean;
+		bean.setBx(bean.getBx() + bean.getMoveX());
+		bean.setBy(bean.getBy() + bean.getMoveY());
 	}
 
 }

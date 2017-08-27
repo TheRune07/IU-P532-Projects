@@ -12,16 +12,20 @@ public class Bean implements Serializable {
 	private static int py;
 	private Image ball;
 	private Image paddle;
-	private final int BALL_WIDTH = 50;
-	private final int BALL_HEIGHT = 50;
-	private final int PADDLE_WIDTH = 150;
-	private final int PADDLE_HEIGHT = 20;
 	private static boolean gameIsOn;
 	private static int moveX;
 	private static int moveY;
 	private static String time;
 	private static int[][] bricksX = new int[6][19];
 	private static int[][] bricksY = new int[6][19];
+	private static final int BALL_WIDTH = 50;
+	private static final int BALL_HEIGHT = 50;
+	private static final int PADDLE_WIDTH = 150;
+	private static final int PADDLE_HEIGHT = 20;
+	private static final int BRICK_WIDTH = 75;
+	private static final int BRICK_HEIGHT = 20;
+	private static int FRAME_WIDTH;
+	private static int FRAME_HEIGHT;
 	
 	public Bean()
 	{
@@ -34,20 +38,8 @@ public class Bean implements Serializable {
 		gameIsOn = true;
 		moveX = 1;
 		moveY = 1;
+		time = "";
 		
-		int brx = 0;
-		int bry = 0;
-		for(int i = 0; i < 6; i++) // put in initializeBricks
-		{
-			for(int j = 0; j < 19; j++)
-			{
-				bricksX[i][j] = brx + 20;
-				bricksY[i][j] = bry + 40;
-				brx = brx + 100;
-			}
-			brx = 0;
-			bry = bry +40;
-		}
 	}
 	
 	int getBx()
@@ -188,5 +180,35 @@ public class Bean implements Serializable {
 	void setBricksY(int i, int j , int x)
 	{
 		bricksY[i][j] = x;
+	}
+	
+	int getBrickWidth()
+	{
+		return BRICK_WIDTH;
+	}
+	
+	int getBrickHeight()
+	{
+		return BRICK_HEIGHT;
+	}
+	
+	int getFrameWidth()
+	{
+		return FRAME_WIDTH;
+	}
+	
+	int getFrameHeight()
+	{
+		return FRAME_HEIGHT;
+	}
+	
+	void setFrameWidth(int w)
+	{
+		FRAME_WIDTH = w;
+	}
+	
+	void setFrameHeight(int h)
+	{
+		FRAME_HEIGHT = h;
 	}
 }

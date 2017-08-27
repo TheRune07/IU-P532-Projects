@@ -39,6 +39,9 @@ public class Breakout extends JPanel {
 		PADDLE_HEIGHT = bean.getPaddleHeight();	
 		this.addKeyListener(new BreakoutListener());
 		setFocusable(true);
+		
+		Brick b1 = new Brick();
+		b1.initializeBricks(b);
 	}
 	
 	public void paint(Graphics g)
@@ -61,12 +64,12 @@ public class Breakout extends JPanel {
 				if(bricksX[i][j] != -1)
 				{
 					g2d.setColor(Color.ORANGE);
-					g2d.fillRect(bricksX[i][j], bricksY[i][j], 75, 20);
+					g2d.fillRect(bricksX[i][j], bricksY[i][j], bean.getBrickWidth(), bean.getBrickHeight());
 				}
 				else
 				{
 					g2d.setColor(Color.GREEN);
-					g2d.fillRect(bricksX[i][j], bricksY[i][j], 75, 20);
+					g2d.fillRect(bricksX[i][j], bricksY[i][j], bean.getBrickWidth(), bean.getBrickHeight());
 				}
 			}
 		}
@@ -90,7 +93,7 @@ public class Breakout extends JPanel {
 			
 			n.notifyObservers();
 			try {
-				Thread.sleep(10);
+				Thread.sleep(5);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -156,7 +159,7 @@ public class Breakout extends JPanel {
 		
 	}	
 	
-	public class BreakoutListener extends KeyAdapter {
+	public class BreakoutListener extends KeyAdapter { // paddle
 		
 		@Override
 		public void keyPressed(KeyEvent ke) {
