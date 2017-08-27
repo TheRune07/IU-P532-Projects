@@ -10,8 +10,8 @@ public class Ball implements Observer
 	
 	Ball(Bean bean)
 	{
-		bean.setBx(500);
-		bean.setBy(400);
+		bean.setBx(100);
+		bean.setBy(100);
 		bean.setMoveX(1);
 		bean.setMoveY(1);
 	}

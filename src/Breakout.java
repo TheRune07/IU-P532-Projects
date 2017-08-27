@@ -64,7 +64,7 @@ public class Breakout extends JPanel {
 		{
 			for(int j = 0; j < 19; j++)
 			{
-				if(bricksX[i][j] != -1)
+				if(bricksX[i][j] != -1 && bricksX[i][j] != -1)
 				{
 					g2d.setColor(Color.ORANGE);
 					g2d.fillRect(bricksX[i][j], bricksY[i][j], bean.getBrickWidth(), bean.getBrickHeight());
@@ -97,7 +97,7 @@ public class Breakout extends JPanel {
 			
 			n.notifyObservers();
 			try {
-				Thread.sleep(5);
+				Thread.sleep(45);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -128,7 +128,7 @@ public class Breakout extends JPanel {
 	}
 	
 	public boolean topCollision(int xBall, int yBall, int xBrick, int yBrick) {
-		if ((xBall >= xBrick) && (xBall <= xBrick + 75) && (yBall == yBrick)) {
+		if ((xBall >= xBrick) && (xBall <= xBrick + 75) && (yBall == yBrick - 25)) {
 			return true;
 		}
 		else {
@@ -145,11 +145,13 @@ public class Breakout extends JPanel {
 				if(bottomCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j])) {
 					bean.setMoveY(1);
 					bean.setBricksX(i, j, -1);
+					bean.setBricksY(i, j, -1);
 				}
 				
 				if(topCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j])) {
 					bean.setMoveY(-1);
 					bean.setBricksX(i, j, -1);
+					bean.setBricksY(i, j, -1);
 				}
 			}
 		}
