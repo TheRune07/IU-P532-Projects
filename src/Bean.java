@@ -20,6 +20,8 @@ public class Bean implements Serializable {
 	private static int moveX;
 	private static int moveY;
 	private static String time;
+	private static int[][] bricksX = new int[6][19];
+	private static int[][] bricksY = new int[6][19];
 	
 	public Bean()
 	{
@@ -32,6 +34,20 @@ public class Bean implements Serializable {
 		gameIsOn = true;
 		moveX = 1;
 		moveY = -1;
+		
+		int brx = 0;
+		int bry = 0;
+		for(int i = 0; i < 6; i++)
+		{
+			for(int j = 0; j < 19; j++)
+			{
+				bricksX[i][j] = brx + 20;
+				bricksY[i][j] = bry + 40;
+				brx = brx + 100;
+			}
+			brx = 0;
+			bry = bry +40;
+		}
 	}
 	
 	int getBx()
@@ -152,6 +168,16 @@ public class Bean implements Serializable {
 	void setTime(String t)
 	{
 		time = t;
+	}
+	
+	int[][] getBricksX()
+	{
+		return bricksX;
+	}
+	
+	int[][] getBricksY()
+	{
+		return bricksY;
 	}
 	
 }

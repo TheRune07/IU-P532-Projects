@@ -50,6 +50,18 @@ public class Breakout extends JPanel {
 		g2d.drawImage(bean.getBall(), bean.getBx(), bean.getBy(), bean.getBallWidth(), bean.getBallHeight(), this);
 		g2d.setColor(Color.red);
 		g2d.drawString(bean.getTime(), 1850, 20);
+		g2d.setColor(Color.ORANGE);
+		
+		int[][] bricksX = bean.getBricksX();
+		int[][] bricksY = bean.getBricksY();
+		for(int i = 0; i < 6; i++)
+		{
+			for(int j = 0; j < 19; j++)
+			{
+				if(bricksX[i][j] != -1)
+					g2d.fillRect(bricksX[i][j], bricksY[i][j], 75, 20);
+			}
+		}
 	}
 	
 	public void startGame()
