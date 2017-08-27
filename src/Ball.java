@@ -29,11 +29,17 @@ public class Ball implements Observer
 		
 	}
 	
-	public void registerBall(Bean bean)
+	public void registerBall()
 	{
 		Breakout b = new Breakout();
 		b.registerObserver(this);
 	}	
+	
+	public void unregisterBall()
+	{
+		Breakout b = new Breakout();
+		b.unregisterObserver(this);
+	}
 	
 	public void moveBall(Bean bean)
 	{

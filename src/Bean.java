@@ -19,6 +19,7 @@ public class Bean implements Serializable {
 	private static boolean gameIsOn;
 	private static int moveX;
 	private static int moveY;
+	private static String time;
 	
 	public Bean()
 	{
@@ -141,6 +142,16 @@ public class Bean implements Serializable {
 	void setMoveY(int y)
 	{
 		moveY = y;
+	}
+	
+	String getTime()
+	{
+		return time;
+	}
+	
+	void setTime(String t)
+	{
+		time = t;
 	}
 	
 }

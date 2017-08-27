@@ -48,19 +48,21 @@ public class Breakout extends JPanel {
 		g2d.drawImage(bean.getPaddle(), bean.getPx(), bean.getPy(), bean.getPaddleWidth(), bean.getPaddleHeight(), this);
 		g2d.setColor(Color.YELLOW);
 		g2d.drawImage(bean.getBall(), bean.getBx(), bean.getBy(), bean.getBallWidth(), bean.getBallHeight(), this);
-		
+		g2d.setColor(Color.red);
+		g2d.drawString(bean.getTime(), 1850, 20);
 	}
 	
 	public void startGame()
 	{
+		Ball ball = new Ball();
+		ball.registerBall();
 		
-		Ball b1 = new Ball();
-		b1.registerBall(bean);
-		
+		Clock clock = new Clock();
+		clock.registerClock();
 		
 		while(bean.getGameIsOn())
 		{
-			b1.moveBall(bean);
+			ball.moveBall(bean);
 			checkCollision();
 			//checkPaddle
 			//checkBrick
@@ -80,6 +82,11 @@ public class Breakout extends JPanel {
 	public void registerObserver(Observer obs){
 		n.addObserver(obs);
 	}
+	
+	public void unregisterObserver(Observer obs){
+		n.removeObserver(obs);
+	}
+	
 	
 	public boolean collidePaddle()
 	{
