@@ -40,11 +40,11 @@ public class Breakout extends JPanel {
 	
 	public void paint(Graphics g)
 	{
+		super.paint(g);
 		g2d = (Graphics2D) g;
 	//	gra = (Object)g;
 		g2d.drawImage(bean.getPaddle(), px, py, PADDLE_WIDTH, PADDLE_HEIGHT, this);
 		g2d.setColor(Color.YELLOW);
-		g2d.fillOval(bean.getBx() - bean.getMoveX(), bean.getBy() - bean.getMoveY(), bean.getBallWidth(), bean.getBallHeight());
 		g2d.drawImage(bean.getBall(), bean.getBx(), bean.getBy(), bean.getBallWidth(), bean.getBallHeight(), this);
 		
 	}
@@ -69,6 +69,7 @@ public class Breakout extends JPanel {
 			}
 			repaint();
 		}
+		System.out.println("game over");
 	}
 	
 	public void registerObserver(Observer obs){

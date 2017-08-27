@@ -13,13 +13,19 @@ public class Ball implements Observer
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		Bean bean = (Bean) arg;
-		bean.setMoveX(-1);	
 		
-		/*Breakout b = new Breakout(bean);
-		Graphics g2d = b.getGraphics();
-		
-		//g2d.drawImage(bean.getBall(), bean.getBx(), bean.getBy(), bean.getBallWidth(), bean.getBallHeight(), b);
-		g2d.drawRect(bean.getBx(), bean.getBy(), bean.getBallWidth(), bean.getBallHeight());*/
+		if(bean.getBx() == 0){
+			bean.setMoveX(1);
+		}
+		if(bean.getBx() == 1870){
+			bean.setMoveX(-1);
+		}
+		if(bean.getBy() == 0){
+			bean.setMoveY(1);
+		}
+		if(bean.getBy() == 1030){
+			bean.setGameIsOn(false);
+		}
 	}
 	
 	public void registerBall(Bean bean)

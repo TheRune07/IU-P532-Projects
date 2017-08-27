@@ -22,7 +22,7 @@ public class Bean implements Serializable {
 	
 	public Bean()
 	{
-		bx = 1000;
+		bx = 100;
 		by = 100;
 		px = 900;
 		py = 970;
@@ -30,7 +30,7 @@ public class Bean implements Serializable {
 		paddle = new ImageIcon("C:\\Users\\kshitij\\Desktop\\paddle.jpg").getImage();
 		gameIsOn = true;
 		moveX = 1;
-		moveY = 1;
+		moveY = -1;
 	}
 	
 	int getBx()
