@@ -127,6 +127,15 @@ public class Breakout extends JPanel {
 		}
 	}
 	
+	public boolean topCollision(int xBall, int yBall, int xBrick, int yBrick) {
+		if ((xBall >= xBrick) && (xBall <= xBrick + 75) && (yBall == yBrick)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public void brickCollide() 
 	{
 		for(int i = 0; i < 6; i++)
@@ -135,6 +144,11 @@ public class Breakout extends JPanel {
 			{
 				if(bottomCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j])) {
 					bean.setMoveY(1);
+					bean.setBricksX(i, j, -1);
+				}
+				
+				if(topCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j])) {
+					bean.setMoveY(-1);
 					bean.setBricksX(i, j, -1);
 				}
 			}
