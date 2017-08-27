@@ -8,7 +8,7 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
-public class Breakout extends JPanel implements Runnable {
+public class Breakout extends JPanel {
 
 	public static Bean bean = new Bean();
 	private static int bx = 0, by = 0, px = 0, py = 0;
@@ -51,9 +51,6 @@ public class Breakout extends JPanel implements Runnable {
 	
 	public void startGame()
 	{
-		Breakout b = new Breakout();
-		Thread ballThread = new Thread(b);
-		//ballThread.start();
 		
 		Ball b1 = new Ball();
 		b1.registerBall(bean);
@@ -61,9 +58,11 @@ public class Breakout extends JPanel implements Runnable {
 		while(bean.getGameIsOn())
 		{
 			b1.moveBall(bean);
-			//n.notifyObservers();
+			//checkPaddle
+			//checkBrick
+			n.notifyObservers();
 			try {
-				Thread.sleep(100);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -74,26 +73,6 @@ public class Breakout extends JPanel implements Runnable {
 	
 	public void registerObserver(Observer obs){
 		n.addObserver(obs);
-	}
-	
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		Ball b1 = new Ball();
-		b1.registerBall(bean);
-			
-		while(bean.getGameIsOn())
-		{
-			b1.moveBall(bean);
-			
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			repaint();
-		}
 	}
 	
 	class Notifier extends Observable 
@@ -114,10 +93,7 @@ public class Breakout extends JPanel implements Runnable {
 		
 		public void notifyObservers(){
 			for(int i = 0; i < observers.size(); i++){
-				HashMap<String, Object> map = new HashMap<String, Object>();
-				map.put("graphic", gra);
-				map.put("bean", bean);
-				observers.get(i).update(this, map);
+				observers.get(i).update(this, bean);
 				repaint();
 			}
 		}

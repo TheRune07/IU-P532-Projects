@@ -29,8 +29,8 @@ public class Bean implements Serializable {
 		ball = new ImageIcon("C:\\Users\\kshitij\\Desktop\\soccerball.png").getImage();
 		paddle = new ImageIcon("C:\\Users\\kshitij\\Desktop\\paddle.jpg").getImage();
 		gameIsOn = true;
-		moveX = 5;
-		moveY = 5;
+		moveX = 1;
+		moveY = 1;
 	}
 	
 	int getBx()

@@ -12,14 +12,14 @@ public class Ball implements Observer
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map = (HashMap<String, Object>) arg;
-		Bean bean = (Bean) map.get("bean");
-		Breakout b = new Breakout(bean);
+		Bean bean = (Bean) arg;
+		bean.setMoveX(-1);	
+		
+		/*Breakout b = new Breakout(bean);
 		Graphics g2d = b.getGraphics();
 		
 		//g2d.drawImage(bean.getBall(), bean.getBx(), bean.getBy(), bean.getBallWidth(), bean.getBallHeight(), b);
-		g2d.drawRect(bean.getBx(), bean.getBy(), bean.getBallWidth(), bean.getBallHeight());
+		g2d.drawRect(bean.getBx(), bean.getBy(), bean.getBallWidth(), bean.getBallHeight());*/
 	}
 	
 	public void registerBall(Bean bean)
@@ -40,6 +40,7 @@ public class Ball implements Observer
 		
 		bean.setBx(bx);
 		bean.setBy(by);
+		
 		
 		//return bean;
 	}
