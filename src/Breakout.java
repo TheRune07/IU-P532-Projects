@@ -59,7 +59,15 @@ public class Breakout extends JPanel {
 			for(int j = 0; j < 19; j++)
 			{
 				if(bricksX[i][j] != -1)
+				{
+					g2d.setColor(Color.ORANGE);
 					g2d.fillRect(bricksX[i][j], bricksY[i][j], 75, 20);
+				}
+				else
+				{
+					g2d.setColor(Color.GREEN);
+					g2d.fillRect(bricksX[i][j], bricksY[i][j], 75, 20);
+				}
 			}
 		}
 	}
@@ -72,12 +80,14 @@ public class Breakout extends JPanel {
 		Clock clock = new Clock();
 		clock.registerClock();
 		
+		Brick brick = new Brick();
+		
 		while(bean.getGameIsOn())
 		{
 			ball.moveBall(bean);
 			checkCollision();
-			//checkPaddle
-			//checkBrick
+			brick.checkCollision(bean);
+			
 			n.notifyObservers();
 			try {
 				Thread.sleep(10);

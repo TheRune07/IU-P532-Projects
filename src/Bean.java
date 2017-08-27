@@ -25,19 +25,19 @@ public class Bean implements Serializable {
 	
 	public Bean()
 	{
-		bx = 100;
-		by = 100;
+		bx = 500;
+		by = 400;
 		px = 900;
 		py = 970;
 		ball = new ImageIcon("C:\\Users\\kshitij\\Desktop\\soccerball.png").getImage();
 		paddle = new ImageIcon("C:\\Users\\kshitij\\Desktop\\paddle.jpg").getImage();
 		gameIsOn = true;
 		moveX = 1;
-		moveY = -1;
+		moveY = 1;
 		
 		int brx = 0;
 		int bry = 0;
-		for(int i = 0; i < 6; i++)
+		for(int i = 0; i < 6; i++) // put in initializeBricks
 		{
 			for(int j = 0; j < 19; j++)
 			{
@@ -180,4 +180,13 @@ public class Bean implements Serializable {
 		return bricksY;
 	}
 	
+	void setBricksX(int i, int j , int x)
+	{
+		bricksX[i][j] = x;
+	}
+	
+	void setBricksY(int i, int j , int x)
+	{
+		bricksY[i][j] = x;
+	}
 }
