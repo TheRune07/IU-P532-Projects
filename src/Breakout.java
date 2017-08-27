@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
@@ -52,7 +53,9 @@ public class Breakout extends JPanel {
 		g2d.setColor(Color.YELLOW);
 		g2d.drawImage(bean.getBall(), bean.getBx(), bean.getBy(), bean.getBallWidth(), bean.getBallHeight(), this);
 		g2d.setColor(Color.red);
-		g2d.drawString(bean.getTime(), 1850, 20);
+		
+		g.setFont(new Font("TimesRoman", Font.BOLD, 20));
+		g2d.drawString(bean.getTime(), 1830, 24);
 		g2d.setColor(Color.ORANGE);
 		
 		int[][] bricksX = bean.getBricksX();
@@ -67,6 +70,12 @@ public class Breakout extends JPanel {
 					g2d.fillRect(bricksX[i][j], bricksY[i][j], bean.getBrickWidth(), bean.getBrickHeight());
 				}
 			}
+		}
+		
+		if(!bean.getGameIsOn())
+		{
+			g2d.setColor(Color.RED);
+			g2d.drawString("GAME OVER!", 870, 500);
 		}
 	}
 	
@@ -111,7 +120,6 @@ public class Breakout extends JPanel {
 	public boolean bottomCollision(int xBall, int yBall, int xBrick, int yBrick) 
 	{
 		if ((xBall >= xBrick) && (xBall <= xBrick + 75) && (yBall == yBrick + 20)) {
-			System.out.println("hit bottom");
 			return true;
 		}
 		else {
@@ -126,7 +134,6 @@ public class Breakout extends JPanel {
 			for(int j = 0; j < 19; j++)
 			{
 				if(bottomCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j])) {
-					//System.out.println("bottom collision");
 					bean.setMoveY(1);
 					bean.setBricksX(i, j, -1);
 				}
