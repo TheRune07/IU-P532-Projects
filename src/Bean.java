@@ -23,14 +23,14 @@ public class Bean implements Serializable {
 	private static final int PADDLE_WIDTH = 150;
 	private static final int PADDLE_HEIGHT = 20;
 	private static final int BRICK_WIDTH = 75;
-	private static final int BRICK_HEIGHT = 20;
+	private static final int BRICK_HEIGHT = 10;
 	private static int FRAME_WIDTH;
 	private static int FRAME_HEIGHT;
 	
 	public Bean()
 	{
-		ball = new ImageIcon("C:\\Users\\Connor\\Desktop\\ball.png").getImage();
-		paddle = new ImageIcon("C:\\Users\\Connor\\Desktop\\paddle2.png").getImage();
+		ball = new ImageIcon("C:\\Users\\kshitij\\Desktop\\soccerball.png").getImage();
+		paddle = new ImageIcon("C:\\Users\\kshitij\\Desktop\\paddle.jpg").getImage();
 		gameIsOn = true;
 		time = "";
 		

@@ -97,7 +97,7 @@ public class Breakout extends JPanel {
 			
 			n.notifyObservers();
 			try {
-				Thread.sleep(45);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -119,7 +119,7 @@ public class Breakout extends JPanel {
 	
 	public boolean bottomCollision(int xBall, int yBall, int xBrick, int yBrick) 
 	{
-		if ((xBall >= xBrick) && (xBall <= xBrick + 75) && (yBall == yBrick + 20)) {
+		if ((xBall+25 >= xBrick) && (xBall <= xBrick + bean.getBrickWidth()) && (yBall == yBrick + bean.getBrickHeight())) {
 			return true;
 		}
 		else {
@@ -128,16 +128,16 @@ public class Breakout extends JPanel {
 	}
 	
 	public boolean topCollision(int xBall, int yBall, int xBrick, int yBrick) {
-		if ((xBall >= xBrick) && (xBall <= xBrick + 75) && (yBall == yBrick - 25)) {
-			return true;
-		}
-		else {
+		if ((xBall+25 >= xBrick) && (xBall <= xBrick + bean.getBrickWidth()) && (yBall == yBrick - 25)) {
+				return true;
+			}
+		else
 			return false;
-		}
+		
 	}
 	
 	public boolean leftCollision(int xBall, int yBall, int xBrick, int yBrick) {
-		if ((yBall >= yBrick) && (yBall <= yBrick + 20) && (xBall == xBrick)) {
+		if ((yBall+25 >= yBrick) && (yBall <= yBrick + bean.getBrickHeight()) && (xBall+25 == xBrick)) {
 			return true;
 		}
 		else {
@@ -146,7 +146,7 @@ public class Breakout extends JPanel {
 	}
 	
 	public boolean rightCollision(int xBall, int yBall, int xBrick, int yBrick) {
-		if ((yBall >= yBrick) && (yBall <= yBrick + 20) && (xBall == xBrick + 75)) {
+		if ((yBall+25 >= yBrick) && (yBall <= yBrick + bean.getBrickHeight()) && (xBall == xBrick + bean.getBrickWidth())) {
 			return true;
 		}
 		else {
@@ -173,13 +173,13 @@ public class Breakout extends JPanel {
 				}
 				
 				if(rightCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j])) {
-					bean.setMoveX(-1);
+					bean.setMoveX(-bean.getMoveX());
 					bean.setBricksX(i, j, -1);
 					bean.setBricksY(i, j, -1);
 				}
 				
 				if(leftCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j])) {
-					bean.setMoveX(1);
+					bean.setMoveX(-bean.getMoveX());
 					bean.setBricksX(i, j, -1);
 					bean.setBricksY(i, j, -1);
 				}
