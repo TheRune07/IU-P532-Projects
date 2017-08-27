@@ -136,6 +136,24 @@ public class Breakout extends JPanel {
 		}
 	}
 	
+	public boolean leftCollision(int xBall, int yBall, int xBrick, int yBrick) {
+		if ((yBall >= yBrick) && (yBall <= yBrick + 20) && (xBall == xBrick)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean rightCollision(int xBall, int yBall, int xBrick, int yBrick) {
+		if ((yBall >= yBrick) && (yBall <= yBrick + 20) && (xBall == xBrick + 75)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public void brickCollide() 
 	{
 		for(int i = 0; i < 6; i++)
@@ -150,6 +168,18 @@ public class Breakout extends JPanel {
 				
 				if(topCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j])) {
 					bean.setMoveY(-1);
+					bean.setBricksX(i, j, -1);
+					bean.setBricksY(i, j, -1);
+				}
+				
+				if(rightCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j])) {
+					bean.setMoveX(-1);
+					bean.setBricksX(i, j, -1);
+					bean.setBricksY(i, j, -1);
+				}
+				
+				if(leftCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j])) {
+					bean.setMoveX(1);
 					bean.setBricksX(i, j, -1);
 					bean.setBricksY(i, j, -1);
 				}
