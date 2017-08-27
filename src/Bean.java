@@ -6,25 +6,31 @@ import javax.swing.ImageIcon;
 
 public class Bean implements Serializable {
 	
-	private int bx;
-	private int by;
-	private int px;
-	private int py;
+	private static int bx;
+	private static int by;
+	private static int px;
+	private static int py;
 	private Image ball;
 	private Image paddle;
 	private final int BALL_WIDTH = 50;
 	private final int BALL_HEIGHT = 50;
-	private final int PADDLE_WIDTH = 380;
+	private final int PADDLE_WIDTH = 120;
 	private final int PADDLE_HEIGHT = 20;
+	private static boolean gameIsOn;
+	private static int moveX;
+	private static int moveY;
 	
 	public Bean()
 	{
 		bx = 1000;
 		by = 100;
 		px = 900;
-		py = 930;
+		py = 970;
 		ball = new ImageIcon("C:\\Users\\kshitij\\Desktop\\soccerball.png").getImage();
 		paddle = new ImageIcon("C:\\Users\\kshitij\\Desktop\\paddle.jpg").getImage();
+		gameIsOn = true;
+		moveX = 0;
+		moveY = 0;
 	}
 	
 	int getBx()
@@ -99,11 +105,42 @@ public class Bean implements Serializable {
 	
 	int getPaddleWidth()
 	{
-		return BALL_WIDTH;
+		return PADDLE_WIDTH;
 	}
 	
 	int getPaddleHeight()
 	{
-		return BALL_HEIGHT;
+		return PADDLE_HEIGHT;
 	}
+	
+	boolean getGameIsOn()
+	{
+		return gameIsOn;
+	}
+	
+	void setGameIsOn(boolean b)
+	{
+		gameIsOn = b;
+	}
+	
+	int getMoveX()
+	{
+		return moveX;
+	}
+	
+	void setMoveX(int x)
+	{
+		moveX = x;
+	}
+	
+	int getMoveY()
+	{
+		return moveY;
+	}
+	
+	void setMoveY(int y)
+	{
+		moveY = y;
+	}
+	
 }
