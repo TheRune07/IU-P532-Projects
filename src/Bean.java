@@ -18,8 +18,8 @@ public class Bean implements Serializable {
 	private static String time;
 	private static int[][] bricksX = new int[6][19];
 	private static int[][] bricksY = new int[6][19];
-	private static final int BALL_WIDTH = 50;
-	private static final int BALL_HEIGHT = 50;
+	private static final int BALL_WIDTH = 25;
+	private static final int BALL_HEIGHT = 25;
 	private static final int PADDLE_WIDTH = 150;
 	private static final int PADDLE_HEIGHT = 20;
 	private static final int BRICK_WIDTH = 75;

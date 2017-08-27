@@ -66,11 +66,6 @@ public class Breakout extends JPanel {
 					g2d.setColor(Color.ORANGE);
 					g2d.fillRect(bricksX[i][j], bricksY[i][j], bean.getBrickWidth(), bean.getBrickHeight());
 				}
-				else
-				{
-					g2d.setColor(Color.GREEN);
-					g2d.fillRect(bricksX[i][j], bricksY[i][j], bean.getBrickWidth(), bean.getBrickHeight());
-				}
 			}
 		}
 	}
@@ -88,8 +83,8 @@ public class Breakout extends JPanel {
 		while(bean.getGameIsOn())
 		{
 			ball.moveBall(bean);
-			//checkCollision();
-			brick.checkCollision(bean);
+			brickCollide();
+			//brick.checkCollision(bean);
 			
 			n.notifyObservers();
 			try {
@@ -112,26 +107,33 @@ public class Breakout extends JPanel {
 	}
 	
 	
-/*	public boolean collidePaddle()
+	
+	public boolean bottomCollision(int xBall, int yBall, int xBrick, int yBrick) 
 	{
-		if((bean.getBx() >= bean.getPx()) && (bean.getBx() <= bean.getPx() + bean.getPaddleWidth())
-				&& (bean.getBy()+bean.getBallHeight() >= bean.getPy()) && ( bean.getBy() <= bean.getBy() + bean.getPaddleHeight()))
+		if ((xBall >= xBrick) && (xBall <= xBrick + 75) && (yBall == yBrick + 20)) {
+			System.out.println("hit bottom");
 			return true;
-		return false;
+		}
+		else {
+			return false;
+		}
 	}
 	
-	public void checkCollision()
+	public void brickCollide() 
 	{
-		if(collidePaddle())
+		for(int i = 0; i < 6; i++)
 		{
-			if((bean.getPx()<=0))
-				bean.setPx(0);
-			if(bean.getPx()+bean.getPaddleWidth() >= 1920)
-				bean.setPx(1920-bean.getPaddleWidth());
-			bean.setMoveX(bean.getMoveX());
-			bean.setMoveY(-1);
+			for(int j = 0; j < 19; j++)
+			{
+				if(bottomCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j])) {
+					//System.out.println("bottom collision");
+					bean.setMoveY(1);
+					bean.setBricksX(i, j, -1);
+				}
+			}
 		}
-	}*/
+	}
+
 	
 	class Notifier extends Observable 
 	{
@@ -158,7 +160,8 @@ public class Breakout extends JPanel {
 		
 	}	
 	
-	public class Paddle extends KeyAdapter { 
+	class Paddle extends KeyAdapter 
+	{ 
 		
 		int px;
 		int py;
@@ -170,7 +173,8 @@ public class Breakout extends JPanel {
 		}
 		
 		@Override
-		public void keyPressed(KeyEvent ke) {
+		public void keyPressed(KeyEvent ke) 
+		{
 			int key = ke.getKeyCode();
 			if(bean.getPx() != 0)
 			{
@@ -187,5 +191,5 @@ public class Breakout extends JPanel {
 			}
 		}
 	}
-
+	
 }
