@@ -8,6 +8,14 @@ public class Ball implements Observer
 {
 	int bx = 0, by = 0, moveX = 0, moveY = 0;
 	
+	Ball(Bean bean)
+	{
+		bean.setBx(500);
+		bean.setBy(400);
+		bean.setMoveX(1);
+		bean.setMoveY(1);
+	}
+	
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -26,6 +34,10 @@ public class Ball implements Observer
 		if(bean.getBy() == 1030){
 			bean.setGameIsOn(false);
 		}
+		
+		if((bean.getBx() >= bean.getPx()) && (bean.getBx() <= bean.getPx() + bean.getPaddleWidth())
+				&& (bean.getBy()+bean.getBallHeight() >= bean.getPy()) && ( bean.getBy() <= bean.getBy() + bean.getPaddleHeight()))
+			bean.setMoveY(-1);
 		
 	}
 	

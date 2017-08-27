@@ -37,7 +37,7 @@ public class Breakout extends JPanel {
 		BALL_HEIGHT = bean.getBallHeight();
 		PADDLE_WIDTH = bean.getPaddleWidth();
 		PADDLE_HEIGHT = bean.getPaddleHeight();	
-		this.addKeyListener(new BreakoutListener());
+		this.addKeyListener(new Paddle(bean));
 		setFocusable(true);
 		
 		Brick b1 = new Brick();
@@ -77,7 +77,7 @@ public class Breakout extends JPanel {
 	
 	public void startGame()
 	{
-		Ball ball = new Ball();
+		Ball ball = new Ball(bean);
 		ball.registerBall();
 		
 		Clock clock = new Clock();
@@ -88,7 +88,7 @@ public class Breakout extends JPanel {
 		while(bean.getGameIsOn())
 		{
 			ball.moveBall(bean);
-			checkCollision();
+			//checkCollision();
 			brick.checkCollision(bean);
 			
 			n.notifyObservers();
@@ -100,7 +100,6 @@ public class Breakout extends JPanel {
 			}
 			repaint();
 		}
-		System.out.println(bean.getPx());
 		System.out.println("game over");
 	}
 	
@@ -113,7 +112,7 @@ public class Breakout extends JPanel {
 	}
 	
 	
-	public boolean collidePaddle()
+/*	public boolean collidePaddle()
 	{
 		if((bean.getBx() >= bean.getPx()) && (bean.getBx() <= bean.getPx() + bean.getPaddleWidth())
 				&& (bean.getBy()+bean.getBallHeight() >= bean.getPy()) && ( bean.getBy() <= bean.getBy() + bean.getPaddleHeight()))
@@ -124,15 +123,15 @@ public class Breakout extends JPanel {
 	public void checkCollision()
 	{
 		if(collidePaddle())
-		{/*
+		{
 			if((bean.getPx()<=0))
 				bean.setPx(0);
 			if(bean.getPx()+bean.getPaddleWidth() >= 1920)
 				bean.setPx(1920-bean.getPaddleWidth());
-			bean.setMoveX(bean.getMoveX());*/
+			bean.setMoveX(bean.getMoveX());
 			bean.setMoveY(-1);
 		}
-	}
+	}*/
 	
 	class Notifier extends Observable 
 	{
@@ -159,7 +158,16 @@ public class Breakout extends JPanel {
 		
 	}	
 	
-	public class BreakoutListener extends KeyAdapter { // paddle
+	public class Paddle extends KeyAdapter { 
+		
+		int px;
+		int py;
+		
+		Paddle(Bean bean)
+		{
+			bean.setPx(900);
+			bean.setPy(970);
+		}
 		
 		@Override
 		public void keyPressed(KeyEvent ke) {

@@ -6,8 +6,8 @@ import javax.swing.ImageIcon;
 
 public class Bean implements Serializable {
 	
-	private static int bx;
-	private static int by;
+	private static int bx = 0;
+	private static int by = 0;
 	private static int px;
 	private static int py;
 	private Image ball;
@@ -29,15 +29,9 @@ public class Bean implements Serializable {
 	
 	public Bean()
 	{
-		bx = 500;
-		by = 400;
-		px = 900;
-		py = 970;
 		ball = new ImageIcon("C:\\Users\\kshitij\\Desktop\\soccerball.png").getImage();
 		paddle = new ImageIcon("C:\\Users\\kshitij\\Desktop\\paddle.jpg").getImage();
 		gameIsOn = true;
-		moveX = 1;
-		moveY = 1;
 		time = "";
 		
 	}
