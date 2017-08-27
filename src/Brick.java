@@ -16,7 +16,7 @@ public class Brick {
 					bricksX[i][j] = -1;
 					bean.setMoveY(-1);
 				}
-			}
+			} 
 		}
 	}
 }
