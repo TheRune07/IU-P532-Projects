@@ -20,4 +20,74 @@ public class Brick {
 			bry = bry +40;
 		}
 	}
+	
+	public boolean bottomCollision(int xBall, int yBall, int xBrick, int yBrick, Bean bean) 
+	{
+		if ((xBall+25 >= xBrick) && (xBall <= xBrick + bean.getBrickWidth()) && (yBall == yBrick + bean.getBrickHeight())) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean topCollision(int xBall, int yBall, int xBrick, int yBrick, Bean bean) {
+		if ((xBall+25 >= xBrick) && (xBall <= xBrick + bean.getBrickWidth()) && (yBall == yBrick - 25)) {
+				return true;
+			}
+		else
+			return false;
+		
+	}
+	
+	public boolean leftCollision(int xBall, int yBall, int xBrick, int yBrick, Bean bean) {
+		if ((yBall+25 >= yBrick) && (yBall <= yBrick + bean.getBrickHeight()) && (xBall+25 == xBrick)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean rightCollision(int xBall, int yBall, int xBrick, int yBrick, Bean bean) {
+		if ((yBall+25 >= yBrick) && (yBall <= yBrick + bean.getBrickHeight()) && (xBall == xBrick + bean.getBrickWidth())) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public void brickCollide(Bean bean) 
+	{
+		for(int i = 0; i < 6; i++)
+		{
+			for(int j = 0; j < 19; j++)
+			{
+				if(bottomCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j], bean)) {
+					bean.setMoveY(1);
+					bean.setBricksX(i, j, -1);
+					bean.setBricksY(i, j, -1);
+				}
+				
+				if(topCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j], bean)) {
+					bean.setMoveY(-1);
+					bean.setBricksX(i, j, -1);
+					bean.setBricksY(i, j, -1);
+				}
+				
+				if(rightCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j], bean)) {
+					bean.setMoveX(-bean.getMoveX());
+					bean.setBricksX(i, j, -1);
+					bean.setBricksY(i, j, -1);
+				}
+				
+				if(leftCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j], bean)) {
+					bean.setMoveX(-bean.getMoveX());
+					bean.setBricksX(i, j, -1);
+					bean.setBricksY(i, j, -1);
+				}
+			}
+		}
+	}
 }

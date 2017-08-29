@@ -26,6 +26,7 @@ public class Bean implements Serializable {
 	private static final int BRICK_HEIGHT = 10;
 	private static int FRAME_WIDTH;
 	private static int FRAME_HEIGHT;
+	public static int win = 0;
 	
 	public Bean()
 	{
@@ -166,6 +167,16 @@ public class Bean implements Serializable {
 		return bricksY;
 	}
 	
+	int getBricksXElement(int i, int j)
+	{
+		return bricksX[i][j];
+	}
+	
+	int getBricksYElement(int i, int j)
+	{
+		return bricksY[i][j];
+	}
+	
 	void setBricksX(int i, int j , int x)
 	{
 		bricksX[i][j] = x;
@@ -204,5 +215,15 @@ public class Bean implements Serializable {
 	void setFrameHeight(int h)
 	{
 		FRAME_HEIGHT = h;
+	}
+	
+	int getWin()
+	{
+		return win;
+	}
+	
+	void setWin(int i)
+	{
+		win = i;
 	}
 }
