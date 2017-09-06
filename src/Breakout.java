@@ -97,7 +97,7 @@ public class Breakout extends JPanel {
 		}
 	}
 	
-	public void startGame()
+	public void startGame(Ball ball, Paddle paddle, Brick brick, Clock clock)
 	{		
 		pause.addActionListener(new ActionListener() {	
 			@Override
