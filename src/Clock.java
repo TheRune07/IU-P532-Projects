@@ -5,7 +5,7 @@ import java.util.Observer;
 
 public class Clock implements Observer, Sprite{
 
-	static String time = "";
+	String time = "";
 	long startTime;
 	
 	public Clock()
@@ -37,7 +37,7 @@ public class Clock implements Observer, Sprite{
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		g2d.drawString(Clock.time, 1850, 24);
+		g2d.drawString(time, 1850, 24);
 		
 	}
 	

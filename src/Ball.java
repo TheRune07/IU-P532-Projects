@@ -15,8 +15,8 @@ public class Ball implements Observer, Sprite
 	int by = 500;
 	int moveX = 1;
 	int moveY =1;
-	static final int BALL_WIDTH = 25;
-	static final int BALL_HEIGHT = 25;
+	final int BALL_WIDTH = 25;
+	final int BALL_HEIGHT = 25;
 	
 	private Image ball = new ImageIcon("C:\\Users\\kshitij\\Desktop\\soccerball.png").getImage();;
 	
@@ -33,6 +33,7 @@ public class Ball implements Observer, Sprite
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
+		Paddle paddle = (Paddle) arg;
 		if(bx == 0){
 			moveX = 1;
 		}
@@ -46,8 +47,8 @@ public class Ball implements Observer, Sprite
 			Breakout.gameIsOn = false;
 		}
 		
-		if((bx >= Paddle.px) && (bx <= Paddle.px + Paddle.PADDLE_WIDTH)
-				&& (by + Ball.BALL_HEIGHT >= Paddle.py) && ( by <= by + Paddle.PADDLE_HEIGHT))
+		if((bx >= paddle.getPx()) && (bx <= paddle.getPx() + paddle.getPaddleWidth())
+				&& (by + BALL_HEIGHT >= paddle.getPy()) && ( by <= by + paddle.getPaddleHeight()))
 			moveY = -1;
 		
 	}

@@ -18,15 +18,12 @@ public class Breakout extends JPanel {
 	public static Graphics2D g2d = null;
 	static boolean gameIsOn = true;
 	static int win = 0;
-	Image ballImage = new ImageIcon("C:\\Users\\kshitij\\Desktop\\soccerball.png").getImage();
-	Image paddleImage = new ImageIcon("C:\\Users\\kshitij\\Desktop\\paddle.jpg").getImage();
 	
 	//Ball ball = new Ball(ballImage, 800, 500, 1, 1);
 	Ball ball;
 	Paddle paddle;
 	Brick brick;
 	Clock clock;
-	BreakoutObservable observable = new BreakoutObservable();
 	
 	
 	Breakout()
@@ -47,33 +44,17 @@ public class Breakout extends JPanel {
 	{
 		super.paint(g);
 		g2d = (Graphics2D) g;
-		//paddle.draw(g2d);
-		g2d.drawImage(paddleImage, Paddle.px, Paddle.py, 150, 20, this);
+		paddle.draw(g2d);
 		g2d.setColor(Color.YELLOW);
 		
-		//ball.draw(g2d);
-		g2d.drawImage(ballImage, ball.getBx(), ball.getBy(), 25, 25, new Breakout());	
+		ball.draw(g2d);
 		
 		g2d.setColor(Color.red);
 		g.setFont(new Font("TimesRoman", Font.BOLD, 20));
-		//clock.draw(g2d);
-		g2d.drawString(Clock.time, 1850, 24);
+		clock.draw(g2d);
 		
 		g2d.setColor(Color.ORANGE);
-		Brick brick = new Brick();
-		//brick.draw(g2d);
-		
-		for(int i = 0; i < 6; i++)
-		{
-			for(int j = 0; j < 19; j++)
-			{
-				if(Brick.bricksX[i][j] != -1 && Brick.bricksX[i][j] != -1)
-				{
-					g2d.setColor(Color.ORANGE);
-					g2d.fillRect(Brick.bricksX[i][j], Brick.bricksY[i][j], 75, 10);
-				}
-			}
-		}
+		brick.draw(g2d);
 		
 		if(!gameIsOn)
 		{
@@ -91,12 +72,12 @@ public class Breakout extends JPanel {
 	{		
 		ball.registerBall();
 		clock.registerClock();
-		brick.initializeBricks();
 		
 		while(gameIsOn)
 		{
 			ball.moveBall();
-			brick.brickCollide(ball);	
+			brick.brickCollide(ball);
+			BreakoutObservable observable = new BreakoutObservable(paddle);
 			observable.notifyObservers();
 			
 			if(checkWin())
@@ -123,7 +104,7 @@ public class Breakout extends JPanel {
 		{
 			for(int j = 0; j < 19; j++)
 			{
-				if(Brick.bricksX[i][j] != -1)
+				if(brick.getBricksX()[i][j] != -1)
 				{
 					return false;
 				}

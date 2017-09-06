@@ -7,17 +7,17 @@ import javax.swing.ImageIcon;
 
 public class Paddle implements KeyListener, Sprite
 {
-	static int px = 900;
-	static int py = 970;
-	static final int PADDLE_WIDTH = 150;
-	static final int PADDLE_HEIGHT = 20;
+	int px = 900;
+	int py = 970;
+	final int PADDLE_WIDTH = 150;
+	final int PADDLE_HEIGHT = 20;
 	Image paddle;
 	
 	Paddle(Image paddle, int px, int py)
 	{
 		this.paddle = paddle;
-		Paddle.px = px;
-		Paddle.py = py;
+		this.px = px;
+		this.py = py;
 	}
 	
 	@Override
@@ -51,8 +51,39 @@ public class Paddle implements KeyListener, Sprite
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		g2d.drawImage(paddle, Paddle.px, Paddle.py, PADDLE_WIDTH, PADDLE_HEIGHT, new Breakout());
+		g2d.drawImage(paddle, px, py, PADDLE_WIDTH, PADDLE_HEIGHT, new Breakout());
 	}
+	
+	int getPx()
+	{
+		return px;
+	}
+	
+	int getPy()
+	{
+		return py;
+	}
+	
+	void setPx(int x)
+	{
+		px = x;
+	}
+	
+	void setPy(int y)
+	{
+		py = y;
+	}
+	
+	int getPaddleWidth()
+	{
+		return PADDLE_WIDTH;
+	}
+	
+	int getPaddleHeight()
+	{
+		return PADDLE_HEIGHT;
+	}
+
 	
 	
 }

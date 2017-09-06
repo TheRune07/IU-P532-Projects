@@ -3,13 +3,13 @@ import java.awt.Graphics2D;
 
 public class Brick implements Sprite {
 	
-	static int[][] bricksX = new int[6][19];
-	static int[][] bricksY = new int[6][19];
+	int[][] bricksX = new int[6][19];
+	int[][] bricksY = new int[6][19];
 	static final int BRICK_WIDTH = 75;
 	static final int BRICK_HEIGHT = 10;
 	
 	
-	public void initializeBricks()
+	public Brick()
 	{
 		int brx = 0;
 		int bry = 0;
@@ -111,7 +111,16 @@ public class Brick implements Sprite {
 				}
 			}
 		}
-		
-		
 	}
+	
+	int[][] getBricksX()
+	{
+		return bricksX;
+	}
+	
+	int[][] getBricksY()
+	{
+		return bricksY;
+	}
+	
 }

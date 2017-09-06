@@ -5,9 +5,14 @@ import java.util.Observer;
 public class BreakoutObservable extends Observable
 {
 	public static ArrayList<Observer> observers = new ArrayList<Observer>();
-	
-	public BreakoutObservable() {
+	Paddle paddle;
+	public BreakoutObservable(Paddle paddle) {
 		// TODO Auto-generated constructor stub
+		this.paddle = paddle;
+	}
+	
+	public BreakoutObservable()
+	{
 		
 	}
 	
@@ -26,8 +31,15 @@ public class BreakoutObservable extends Observable
 	}
 	
 	public void notifyObservers(){
-		for(int i = 0; i < observers.size(); i++){
+		for(int i = 0; i < observers.size(); i++)
+		{
+			if(i == 0)
+			{
+				observers.get(i).update(this, paddle);
+			}
+			else{
 			observers.get(i).update(this, null);
+			}
 			Breakout breakout = new Breakout();
 			breakout.repaint();
 		}
