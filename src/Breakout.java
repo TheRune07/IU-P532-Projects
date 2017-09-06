@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -9,101 +10,99 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class Breakout extends JPanel {
 
-	public static Bean bean = new Bean();
-	private static int bx = 0, by = 0, px = 0, py = 0;
-	private int BALL_WIDTH = 0, BALL_HEIGHT = 0, PADDLE_WIDTH = 0, PADDLE_HEIGHT = 0;
 	public static Graphics2D g2d = null;
-	static Object gra = new Object();
-	Notifier n = new Notifier();	
-	public static ArrayList<Observer> observers = new ArrayList<Observer>();
+	static boolean gameIsOn = true;
+	static int win = 0;
+	Image ballImage = new ImageIcon("C:\\Users\\kshitij\\Desktop\\soccerball.png").getImage();
+	Image paddleImage = new ImageIcon("C:\\Users\\kshitij\\Desktop\\paddle.jpg").getImage();
+	
+	//Ball ball = new Ball(ballImage, 800, 500, 1, 1);
+	Ball ball;
+	Paddle paddle;
+	Brick brick;
+	Clock clock;
+	BreakoutObservable observable = new BreakoutObservable();
 	
 	
 	Breakout()
 	{
-		
-		
+				
 	}
-	Breakout(Bean b)
+	Breakout(Ball ball, Paddle paddle, Brick brick, Clock clock)
 	{
-		bean = b;
-		bx = bean.getBx();
-		by = bean.getBy();
-		px = bean.getPx();
-		py = bean.getPy();
-		BALL_WIDTH = bean.getBallWidth();
-		BALL_HEIGHT = bean.getBallHeight();
-		PADDLE_WIDTH = bean.getPaddleWidth();
-		PADDLE_HEIGHT = bean.getPaddleHeight();	
-		this.addKeyListener(new Paddle(bean));
+		this.ball = ball;
+		this.paddle = paddle;
+		this.brick = brick;
+		this.clock = clock;
+		this.addKeyListener(paddle);
 		setFocusable(true);
-		
-		Brick b1 = new Brick();
-		b1.initializeBricks(b);
 	}
 	
 	public void paint(Graphics g)
 	{
 		super.paint(g);
 		g2d = (Graphics2D) g;
-		g2d.drawImage(bean.getPaddle(), bean.getPx(), bean.getPy(), bean.getPaddleWidth(), bean.getPaddleHeight(), this);
+		//paddle.draw(g2d);
+		g2d.drawImage(paddleImage, Paddle.px, Paddle.py, 150, 20, this);
 		g2d.setColor(Color.YELLOW);
-		g2d.drawImage(bean.getBall(), bean.getBx(), bean.getBy(), bean.getBallWidth(), bean.getBallHeight(), this);
+		
+		//ball.draw(g2d);
+		g2d.drawImage(ballImage, ball.getBx(), ball.getBy(), 25, 25, new Breakout());	
+		
 		g2d.setColor(Color.red);
-		
 		g.setFont(new Font("TimesRoman", Font.BOLD, 20));
-		g2d.drawString(bean.getTime(), 1830, 24);
-		g2d.setColor(Color.ORANGE);
+		//clock.draw(g2d);
+		g2d.drawString(Clock.time, 1850, 24);
 		
-		int[][] bricksX = bean.getBricksX();
-		int[][] bricksY = bean.getBricksY();
+		g2d.setColor(Color.ORANGE);
+		Brick brick = new Brick();
+		//brick.draw(g2d);
+		
 		for(int i = 0; i < 6; i++)
 		{
 			for(int j = 0; j < 19; j++)
 			{
-				if(bricksX[i][j] != -1 && bricksX[i][j] != -1)
+				if(Brick.bricksX[i][j] != -1 && Brick.bricksX[i][j] != -1)
 				{
 					g2d.setColor(Color.ORANGE);
-					g2d.fillRect(bricksX[i][j], bricksY[i][j], bean.getBrickWidth(), bean.getBrickHeight());
+					g2d.fillRect(Brick.bricksX[i][j], Brick.bricksY[i][j], 75, 10);
 				}
 			}
 		}
 		
-		if(!bean.getGameIsOn())
+		if(!gameIsOn)
 		{
 			g2d.setColor(Color.RED);
 			g2d.drawString("GAME OVER!", 870, 500);
 		}
-		if(bean.getWin() == 1)
+		if(win == 1)
 		{
 			g2d.setColor(Color.RED);
-			g2d.drawString("You are victorious!", 870, 500);
+			g2d.drawString("You are Victorious!", 870, 500);
 		}
 	}
 	
 	public void startGame()
-	{
-		Ball ball = new Ball(bean);
+	{		
 		ball.registerBall();
-		
-		Clock clock = new Clock();
 		clock.registerClock();
+		brick.initializeBricks();
 		
-		Brick brick = new Brick();
-		
-		while(bean.getGameIsOn())
+		while(gameIsOn)
 		{
-			ball.moveBall(bean);
-			brick.brickCollide(bean);			
-			n.notifyObservers();
+			ball.moveBall();
+			brick.brickCollide(ball);	
+			observable.notifyObservers();
 			
-			if(checkWin(bean))
+			if(checkWin())
 			{
-				bean.setGameIsOn(false);
-				bean.setWin(1);
+				gameIsOn = false;
+				win = 1;
 			}
 			
 			try {
@@ -116,24 +115,15 @@ public class Breakout extends JPanel {
 		}
 		ball.unregisterBall();
 		clock.unregisterClock();
-		System.out.println(n.countObservers());
-	}
-	
-	public void registerObserver(Observer obs){
-		n.addObserver(obs);
-	}
-	
-	public void unregisterObserver(Observer obs){
-		n.removeObserver(obs);
 	}
 
-	public boolean checkWin(Bean bean)
+	public boolean checkWin()
 	{
 		for(int i = 0; i < 6; i++)
 		{
 			for(int j = 0; j < 19; j++)
 			{
-				if(bean.getBricksX()[i][j] != -1)
+				if(Brick.bricksX[i][j] != -1)
 				{
 					return false;
 				}
@@ -142,61 +132,36 @@ public class Breakout extends JPanel {
 		return true;
 	}
 	
-	class Notifier extends Observable 
-	{
-		public void addObserver(Observer obs)
-		{
-			observers.add(obs);
-		}
-		
-		public void removeObserver(Observer obs)
-		{
-			observers.remove(obs);
-		}
-		
-		public int countObservers(){
-			return observers.size();
-		}
-		
-		public void notifyObservers(){
-			for(int i = 0; i < observers.size(); i++){
-				observers.get(i).update(this, bean);
-				repaint();
-			}
-		}
-		
-	}	
-	
-	class Paddle extends KeyAdapter 
+	/*
+	public static class Paddle extends KeyAdapter 
 	{ 
 		
-		int px;
-		int py;
+		static int px = 900;
+		static int py = 970;
 		
-		Paddle(Bean bean)
+		Paddle()
 		{
-			bean.setPx(900);
-			bean.setPy(970);
+			
 		}
 		
 		@Override
 		public void keyPressed(KeyEvent ke) 
 		{
 			int key = ke.getKeyCode();
-			if(bean.getPx() != 0)
+			if(px != 0)
 			{
 				if (key == 37) {
-					bean.setPx(bean.getPx() - 50);
+					px = px - 50;
 				}
 			}
-			if(bean.getPx() != 1750)
+			if(px != 1750)
 			{
 				if (key == 39) {
-					bean.setPx(bean.getPx() + 50);
+					px = px + 50;
 				}
 			
 			}
 		}
-	}
+	}*/
 	
 }

@@ -1,11 +1,16 @@
+import java.awt.Color;
+import java.awt.Graphics2D;
 
-public class Brick {
+public class Brick implements Sprite {
 	
-	public void initializeBricks(Bean bean)
+	static int[][] bricksX = new int[6][19];
+	static int[][] bricksY = new int[6][19];
+	static final int BRICK_WIDTH = 75;
+	static final int BRICK_HEIGHT = 10;
+	
+	
+	public void initializeBricks()
 	{
-		int[][] bricksX = bean.getBricksX();
-		int[][] bricksY = bean.getBricksY();
-		
 		int brx = 0;
 		int bry = 0;
 		for(int i = 0; i < 6; i++) // put in initializeBricks
@@ -21,9 +26,9 @@ public class Brick {
 		}
 	}
 	
-	public boolean bottomCollision(int xBall, int yBall, int xBrick, int yBrick, Bean bean) 
+	public boolean bottomCollision(int xBall, int yBall, int xBrick, int yBrick) 
 	{
-		if ((xBall+25 >= xBrick) && (xBall <= xBrick + bean.getBrickWidth()) && (yBall == yBrick + bean.getBrickHeight())) {
+		if ((xBall+25 >= xBrick) && (xBall <= xBrick + BRICK_WIDTH) && (yBall == yBrick + BRICK_HEIGHT)) {
 			return true;
 		}
 		else {
@@ -31,8 +36,8 @@ public class Brick {
 		}
 	}
 	
-	public boolean topCollision(int xBall, int yBall, int xBrick, int yBrick, Bean bean) {
-		if ((xBall+25 >= xBrick) && (xBall <= xBrick + bean.getBrickWidth()) && (yBall == yBrick - 25)) {
+	public boolean topCollision(int xBall, int yBall, int xBrick, int yBrick) {
+		if ((xBall+25 >= xBrick) && (xBall <= xBrick + BRICK_WIDTH) && (yBall == yBrick - 25)) {
 				return true;
 			}
 		else
@@ -40,8 +45,8 @@ public class Brick {
 		
 	}
 	
-	public boolean leftCollision(int xBall, int yBall, int xBrick, int yBrick, Bean bean) {
-		if ((yBall+25 >= yBrick) && (yBall <= yBrick + bean.getBrickHeight()) && (xBall+25 == xBrick)) {
+	public boolean leftCollision(int xBall, int yBall, int xBrick, int yBrick) {
+		if ((yBall+25 >= yBrick) && (yBall <= yBrick + BRICK_HEIGHT) && (xBall+25 == xBrick)) {
 			return true;
 		}
 		else {
@@ -49,8 +54,8 @@ public class Brick {
 		}
 	}
 	
-	public boolean rightCollision(int xBall, int yBall, int xBrick, int yBrick, Bean bean) {
-		if ((yBall+25 >= yBrick) && (yBall <= yBrick + bean.getBrickHeight()) && (xBall == xBrick + bean.getBrickWidth())) {
+	public boolean rightCollision(int xBall, int yBall, int xBrick, int yBrick) {
+		if ((yBall+25 >= yBrick) && (yBall <= yBrick + BRICK_HEIGHT) && (xBall == xBrick + BRICK_WIDTH)) {
 			return true;
 		}
 		else {
@@ -58,36 +63,55 @@ public class Brick {
 		}
 	}
 	
-	public void brickCollide(Bean bean) 
+	public void brickCollide(Ball ball) 
 	{
 		for(int i = 0; i < 6; i++)
 		{
 			for(int j = 0; j < 19; j++)
 			{
-				if(bottomCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j], bean)) {
-					bean.setMoveY(1);
-					bean.setBricksX(i, j, -1);
-					bean.setBricksY(i, j, -1);
+				if(bottomCollision(ball.getBx(), ball.getBy(), bricksX[i][j], bricksY[i][j])) {
+					ball.setMoveY(1);
+					bricksX[i][j] = -1;
+					bricksY[i][j] = -1;
+					
 				}
 				
-				if(topCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j], bean)) {
-					bean.setMoveY(-1);
-					bean.setBricksX(i, j, -1);
-					bean.setBricksY(i, j, -1);
+				if(topCollision(ball.getBx(), ball.getBy(), bricksX[i][j], bricksY[i][j])) {
+					ball.setMoveY(-1);
+					bricksX[i][j] = -1;
+					bricksY[i][j] = -1;
 				}
 				
-				if(rightCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j], bean)) {
-					bean.setMoveX(-bean.getMoveX());
-					bean.setBricksX(i, j, -1);
-					bean.setBricksY(i, j, -1);
+				if(rightCollision(ball.getBx(), ball.getBy(), bricksX[i][j], bricksY[i][j])) {
+					ball.setMoveX(-ball.getMoveX());
+					bricksX[i][j] = -1;
+					bricksY[i][j] = -1;
 				}
 				
-				if(leftCollision(bean.getBx(), bean.getBy(), bean.getBricksX()[i][j], bean.getBricksY()[i][j], bean)) {
-					bean.setMoveX(-bean.getMoveX());
-					bean.setBricksX(i, j, -1);
-					bean.setBricksY(i, j, -1);
+				if(leftCollision(ball.getBx(), ball.getBy(), bricksX[i][j], bricksY[i][j])) {
+					ball.setMoveX(-ball.getMoveX());
+					bricksX[i][j] = -1;
+					bricksY[i][j] = -1;
 				}
 			}
 		}
+	}
+
+	@Override
+	public void draw(Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		for(int i = 0; i < 6; i++)
+		{
+			for(int j = 0; j < 19; j++)
+			{
+				if(bricksX[i][j] != -1 && bricksX[i][j] != -1)
+				{
+					g2d.setColor(Color.ORANGE);
+					g2d.fillRect(bricksX[i][j], bricksY[i][j], BRICK_WIDTH, BRICK_HEIGHT);
+				}
+			}
+		}
+		
+		
 	}
 }

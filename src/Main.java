@@ -1,5 +1,7 @@
 import java.awt.Color;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 
@@ -14,11 +16,16 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Breakout!");
 		
-		Bean bean = new Bean();
-		Breakout breakout = new Breakout(bean);
+		Image ballImage = new ImageIcon("C:\\Users\\kshitij\\Desktop\\soccerball.png").getImage();
+		Image paddleImage = new ImageIcon("C:\\Users\\kshitij\\Desktop\\paddle.jpg").getImage();
+		
+		Ball ball = new Ball(ballImage, 800, 500, 1, 1);
+		Paddle paddle = new Paddle(paddleImage, 900, 970);
+		Brick brick = new Brick();
+		Clock clock = new Clock();
+		
+		Breakout breakout = new Breakout(ball, paddle, brick, clock);
 		breakout.setSize(FRAME_WIDTH,FRAME_HEIGHT);
-		bean.setFrameWidth(FRAME_WIDTH);
-		bean.setFrameHeight(FRAME_HEIGHT);
 		frame.add(breakout);
 		//frame.setBackground(Color.YELLOW);
 

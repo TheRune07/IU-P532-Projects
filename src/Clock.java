@@ -1,29 +1,44 @@
+import java.awt.Graphics2D;
 import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Clock implements Observer{
+public class Clock implements Observer, Sprite{
 
+	static String time = "";
+	long startTime;
+	
+	public Clock()
+	{
+		this.startTime =  System.nanoTime();
+	}
+	
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
-		Bean bean = (Bean) arg1;
 		Date date = new Date();
-		String time = date.toString();
-		time = time.substring(11, 19);
-		bean.setTime(time);
+		Double timeElapsed = (System.nanoTime() - startTime) / 1000000000.0;
+		time = timeElapsed.toString();
+		time = time.substring(0, 6);
 	}
 	
 	public void registerClock()
 	{
-		Breakout b = new Breakout();
-		b.registerObserver(this);
+		BreakoutObservable oberservable = new BreakoutObservable();
+		oberservable.addObserver(this);
 	}
 	
 	public void unregisterClock()
 	{
-		Breakout b = new Breakout();
-		b.unregisterObserver(this);
+		BreakoutObservable observable = new BreakoutObservable();
+		observable.removeObserver(this);
+	}
+
+	@Override
+	public void draw(Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		g2d.drawString(Clock.time, 1850, 24);
+		
 	}
 	
 }
