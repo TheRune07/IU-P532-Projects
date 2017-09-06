@@ -124,7 +124,7 @@ public class Breakout extends JPanel {
 		{
 			ball.moveBall();
 			brick.brickCollide(ball);
-			storeInstance(ball, paddle, clock, brick);
+			storeInstance(ball, paddle, clock, brick);	//clone objects before calling this
 			BreakoutObservable observable = new BreakoutObservable(paddle);
 			observable.notifyObservers();
 			
