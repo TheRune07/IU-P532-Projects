@@ -12,12 +12,18 @@ public class Paddle implements KeyListener, Sprite
 	final int PADDLE_WIDTH = 150;
 	final int PADDLE_HEIGHT = 20;
 	Image paddle;
+	Paddle clonePaddle;
 	
 	Paddle(Image paddle, int px, int py)
 	{
 		this.paddle = paddle;
 		this.px = px;
 		this.py = py;
+	}
+	
+	Paddle(Paddle paddle)
+	{
+		clonePaddle = paddle;
 	}
 	
 	@Override

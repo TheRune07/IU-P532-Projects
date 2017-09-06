@@ -24,7 +24,6 @@ public class Breakout extends JPanel {
 	static boolean gameIsOn = true;
 	static int win = 0;
 	
-	//Ball ball = new Ball(ballImage, 800, 500, 1, 1);
 	Ball ball;
 	Paddle paddle;
 	Brick brick;
@@ -137,8 +136,9 @@ public class Breakout extends JPanel {
 				// TODO Auto-generated method stub
 				breakLoop = 1;
 				/*
-				startGame(ball, paddle, brick, clock);
-				
+				 for stack size:
+					startGame(ball, paddle, brick, clock);
+					and set breakLoop to 1;
 				*/
 			}
 		});
@@ -194,11 +194,14 @@ public class Breakout extends JPanel {
 	
 	public void storeInstance(Ball ball, Paddle paddle, Clock clock, Brick brick)
 	{
-
-		ballObjects.push(ball);
-		paddleObjects.push(paddle);
-		clockObjects.push(clock);
-		brickObjects.push(brick);
+		Ball cloneBall = new Ball(ball);
+		Paddle clonePaddle = new Paddle(paddle);
+		Brick cloneBrick = new Brick(brick);
+		Clock cloneClock = new Clock(clock);
+		ballObjects.push(cloneBall);
+		paddleObjects.push(clonePaddle);
+		clockObjects.push(cloneClock);
+		brickObjects.push(cloneBrick);
 	}
 	
 	

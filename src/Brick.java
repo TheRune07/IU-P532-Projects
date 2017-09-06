@@ -7,7 +7,12 @@ public class Brick implements Sprite {
 	int[][] bricksY = new int[6][19];
 	static final int BRICK_WIDTH = 75;
 	static final int BRICK_HEIGHT = 10;
+	Brick cloneBrick;
 	
+	Brick(Brick brick)
+	{
+		cloneBrick = brick;
+	}
 	
 	public Brick()
 	{

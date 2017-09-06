@@ -17,6 +17,7 @@ public class Ball implements Observer, Sprite
 	int moveY =1;
 	final int BALL_WIDTH = 25;
 	final int BALL_HEIGHT = 25;
+	Ball cloneBall;
 	
 	private Image ball = new ImageIcon("C:\\Users\\kshitij\\Desktop\\soccerball.png").getImage();;
 	
@@ -28,6 +29,11 @@ public class Ball implements Observer, Sprite
 		this.by = by;
 		this.moveX = moveX;
 		this.moveY = moveY;
+	}
+	
+	Ball(Ball ball)
+	{
+		cloneBall = ball;
 	}
 	
 	@Override
