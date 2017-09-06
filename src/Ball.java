@@ -8,7 +8,7 @@ import java.util.Observer;
 import javax.swing.ImageIcon;
 
 
-
+// added some comments to check branching
 public class Ball implements Observer, Sprite 
 {
 	int bx = 800;
