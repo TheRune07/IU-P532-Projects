@@ -35,8 +35,7 @@ public class Breakout extends JPanel {
 	static Stack<Clock> clockObjects;
 	static Stack<Brick> brickObjects;
 	int breakLoop = 0;
-	
-	
+
 	Breakout()
 	{
 				
@@ -101,8 +100,7 @@ public class Breakout extends JPanel {
 	
 	public void startGame()
 	{		
-		pause.addActionListener(new ActionListener() {
-			
+		pause.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -110,15 +108,40 @@ public class Breakout extends JPanel {
 			}
 		});
 		
+		
+		
 		resume.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 			//	startGame() with current Instances;
+				//startGame(ball, paddle, brick, clock);
 			}
 		});
 		
+		undo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				breakLoop = 1;
+				//popAll()
+			}
+		});
+		
+		replay.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				breakLoop = 1;
+				/*
+				startGame(ball, paddle, brick, clock);
+				
+				*/
+			}
+		});
 		
 		while(gameIsOn)
 		{
@@ -168,6 +191,7 @@ public class Breakout extends JPanel {
 		return true;
 	}
 	
+	
 	public void storeInstance(Ball ball, Paddle paddle, Clock clock, Brick brick)
 	{
 
@@ -177,36 +201,5 @@ public class Breakout extends JPanel {
 		brickObjects.push(brick);
 	}
 	
-	/*
-	public static class Paddle extends KeyAdapter 
-	{ 
-		
-		static int px = 900;
-		static int py = 970;
-		
-		Paddle()
-		{
-			
-		}
-		
-		@Override
-		public void keyPressed(KeyEvent ke) 
-		{
-			int key = ke.getKeyCode();
-			if(px != 0)
-			{
-				if (key == 37) {
-					px = px - 50;
-				}
-			}
-			if(px != 1750)
-			{
-				if (key == 39) {
-					px = px + 50;
-				}
-			
-			}
-		}
-	}*/
 	
 }
