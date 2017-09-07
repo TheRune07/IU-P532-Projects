@@ -24,7 +24,6 @@ public class Breakout extends JPanel {
 	static boolean gameIsOn = true;
 	static int win = 0;
 	
-	//Ball ball = new Ball(ballImage, 800, 500, 1, 1);
 	Ball ball;
 	Paddle paddle;
 	Brick brick;
@@ -35,8 +34,7 @@ public class Breakout extends JPanel {
 	static Stack<Clock> clockObjects;
 	static Stack<Brick> brickObjects;
 	int breakLoop = 0;
-	
-	
+
 	Breakout()
 	{
 				
@@ -99,10 +97,9 @@ public class Breakout extends JPanel {
 		}
 	}
 	
-	public void startGame()
+	public void startGame(Ball ball, Paddle paddle, Brick brick, Clock clock)
 	{		
-		pause.addActionListener(new ActionListener() {
-			
+		pause.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -110,21 +107,47 @@ public class Breakout extends JPanel {
 			}
 		});
 		
+		
+		
 		resume.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 			//	startGame() with current Instances;
+				//startGame(ball, paddle, brick, clock);
 			}
 		});
 		
+		undo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				breakLoop = 1;
+				//popAll()
+			}
+		});
+		
+		replay.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				breakLoop = 1;
+				/*
+				 for stack size:
+					startGame(ball, paddle, brick, clock);
+					and set breakLoop to 1;
+				*/
+			}
+		});
 		
 		while(gameIsOn)
 		{
 			ball.moveBall();
 			brick.brickCollide(ball);
-			storeInstance(ball, paddle, clock, brick);
+			storeInstance(ball, paddle, clock, brick);	//clone objects before calling this
 			BreakoutObservable observable = new BreakoutObservable(paddle);
 			observable.notifyObservers();
 			
@@ -168,45 +191,18 @@ public class Breakout extends JPanel {
 		return true;
 	}
 	
+	
 	public void storeInstance(Ball ball, Paddle paddle, Clock clock, Brick brick)
 	{
-
-		ballObjects.push(ball);
-		paddleObjects.push(paddle);
-		clockObjects.push(clock);
-		brickObjects.push(brick);
+		Ball cloneBall = new Ball(ball);
+		Paddle clonePaddle = new Paddle(paddle);
+		Brick cloneBrick = new Brick(brick);
+		Clock cloneClock = new Clock(clock);
+		ballObjects.push(cloneBall);
+		paddleObjects.push(clonePaddle);
+		clockObjects.push(cloneClock);
+		brickObjects.push(cloneBrick);
 	}
 	
-	/*
-	public static class Paddle extends KeyAdapter 
-	{ 
-		
-		static int px = 900;
-		static int py = 970;
-		
-		Paddle()
-		{
-			
-		}
-		
-		@Override
-		public void keyPressed(KeyEvent ke) 
-		{
-			int key = ke.getKeyCode();
-			if(px != 0)
-			{
-				if (key == 37) {
-					px = px - 50;
-				}
-			}
-			if(px != 1750)
-			{
-				if (key == 39) {
-					px = px + 50;
-				}
-			
-			}
-		}
-	}*/
 	
 }

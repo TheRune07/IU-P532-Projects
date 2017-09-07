@@ -30,6 +30,6 @@ public class Main {
 		//frame.setBackground(Color.YELLOW);
 
 		frame.setVisible(true);
-		breakout.startGame();
+		breakout.startGame(ball, paddle, brick, clock);
 	}
 }

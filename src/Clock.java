@@ -7,10 +7,16 @@ public class Clock implements Observer, Sprite{
 
 	String time = "";
 	long startTime;
+	Clock cloneClock;
 	
 	public Clock()
 	{
 		this.startTime =  System.nanoTime();
+	}
+	
+	Clock(Clock clock)
+	{
+		cloneClock = clock;
 	}
 	
 	@Override
