@@ -11,10 +11,10 @@ public class Main
 	
 	public static void main(String args[])
 	{
-//		final int FRAME_WIDTH = 1920;
-//		final int FRAME_HEIGHT = 1030;
+//		final int FRAME_WIDTH = BOARD_HEIGHT;
+//		final int FRAME_HEIGHT = BOARD_HEIGHT;
 		JFrame frame = new JFrame();
-		frame.setSize(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT );
+		frame.setSize(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Breakout!");
@@ -30,7 +30,7 @@ public class Main
 		//frame.setBackground(Color.YELLOW);
 
 		frame.setVisible(true);
-		breakout.startGame(ball, paddle, brick, clock);
+		breakout.startGame();
 		
 	}
 }

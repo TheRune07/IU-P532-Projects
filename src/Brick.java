@@ -5,8 +5,8 @@ public class Brick implements Sprite, Cloneable {
 	
 	int[][] bricksX = new int[Constants.BRICK_ROW][Constants.BRICK_COLUMN];
 	int[][] bricksY = new int[Constants.BRICK_ROW][Constants.BRICK_COLUMN];
-	int BRICK_WIDTH = Constants.BRICK_WIDTH;
-	int BRICK_HEIGHT = Constants.BRICK_HEIGHT;
+	static final int BRICK_WIDTH = 50;
+	static final int BRICK_HEIGHT = 10;
 	Brick cloneBrick;
 	
 	Brick(Brick brick)
@@ -24,7 +24,7 @@ public class Brick implements Sprite, Cloneable {
 			{
 				bricksX[i][j] = brx + 20;
 				bricksY[i][j] = bry + 40;
-				brx = brx + 100;
+				brx = brx + 80;
 			}
 			brx = 0;
 			bry = bry +40;
@@ -117,7 +117,7 @@ public class Brick implements Sprite, Cloneable {
 			{
 				if(bricksX[i][j] != -1 && bricksX[i][j] != -1)
 				{
-					g2d.setColor(Constants.BRICK_COLOR);
+					g2d.setColor(Color.ORANGE);
 					g2d.fillRect(bricksX[i][j], bricksY[i][j], BRICK_WIDTH, BRICK_HEIGHT);
 				}
 			}
