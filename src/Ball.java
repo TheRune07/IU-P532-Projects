@@ -13,8 +13,8 @@ public class Ball implements Observer, Sprite, Cloneable
 	int by = Constants.BALL_POS_Y;
 	int moveX = Constants.BALL_VEL_X;
 	int moveY =Constants.BALL_VEL_Y;
-	int BALL_WIDTH = Constants.BALL_WIDTH;
-	int BALL_HEIGHT = Constants.BALL_HEIGHT;
+	final int BALL_WIDTH = Constants.BALL_WIDTH;
+	final int BALL_HEIGHT = Constants.BALL_HEIGHT;
 	Ball cloneBall;
 	
 	Ball(int bx, int by, int moveX, int moveY)
@@ -48,7 +48,7 @@ public class Ball implements Observer, Sprite, Cloneable
 		if(bx == 0){
 			moveX = 1;
 		}
-		if(bx == Constants.BOARD_WIDTH - 20){
+		if(bx == Constants.BOARD_WIDTH-30){
 			moveX = -1;
 		}
 		if(by == 0){
@@ -85,7 +85,7 @@ public class Ball implements Observer, Sprite, Cloneable
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		g2d.setColor(Constants.BALL_COLOR);
+		g2d.setColor(Color.RED);
         g2d.fillOval(bx, by, BALL_WIDTH, BALL_HEIGHT);
 	}
 	

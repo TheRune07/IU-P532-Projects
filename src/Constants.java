@@ -4,7 +4,7 @@ import java.awt.Dimension;
 public class Constants {
 	//Frame Constants
 		protected static final int BOARD_HEIGHT = 700;
-		protected static final int BOARD_WIDTH = 800;
+		protected static final int BOARD_WIDTH = 820;
 		protected static final Dimension BOARD_DIMENSIONS= new Dimension(BOARD_HEIGHT, BOARD_WIDTH);	
 
 		//Play start
@@ -30,8 +30,8 @@ public class Constants {
 		//Paddle Constants
 		public static int PADDLE_POS_X = 300;
 		public static int PADDLE_POS_Y = BOARD_HEIGHT - 60;
-		public static int PADDLE_WIDTH = 50;
-		public static int PADDLE_HEIGHT = 10;
+		public static int PADDLE_WIDTH = 100;
+		public static int PADDLE_HEIGHT = 20;
 		public static Color PADDLE_COLOR = Color.GREEN;
 		
 		//Notifications

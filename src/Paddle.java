@@ -7,8 +7,8 @@ public class Paddle implements KeyListener, Sprite, Cloneable
 {
 	int px = Constants.PADDLE_POS_X;
 	int py = Constants.PADDLE_POS_Y;
-	int PADDLE_WIDTH = Constants.PADDLE_WIDTH;
-	int PADDLE_HEIGHT = Constants.PADDLE_HEIGHT;
+	final int PADDLE_WIDTH = Constants.PADDLE_WIDTH;
+	final int PADDLE_HEIGHT = Constants.PADDLE_HEIGHT;
 	
 	Paddle clonePaddle;
 	
@@ -40,7 +40,7 @@ public class Paddle implements KeyListener, Sprite, Cloneable
 				
 			}
 		}
-		if(px != Constants.BOARD_WIDTH-100)
+		if(px != Constants.BOARD_WIDTH-300)
 		{
 			if (key == 39) {
 				// moving the paddle right
@@ -63,7 +63,7 @@ public class Paddle implements KeyListener, Sprite, Cloneable
 	
 	@Override
 	public void draw(Graphics2D g2d) {
-		g2d.setColor(Constants.PADDLE_COLOR);
+		g2d.setColor(Color.GREEN);
         g2d.fillRect(px,py,PADDLE_WIDTH,PADDLE_HEIGHT);
 	}
 	

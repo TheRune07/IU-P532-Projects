@@ -104,7 +104,7 @@ public class Breakout extends JPanel implements ActionListener {
 		}
 	}
 	
-	public void startGame(Ball ball, Paddle paddle, Brick brick, Clock clock)
+	public void startGame()
 	{		
 		while(true)
 		{ System.out.print("");
