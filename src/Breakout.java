@@ -18,7 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class Breakout extends JPanel {
+public class Breakout extends JPanel implements ActionListener {
 
 	public static Graphics2D g2d = null;
 	static boolean gameIsOn = true;
@@ -28,13 +28,15 @@ public class Breakout extends JPanel {
 	Paddle paddle;
 	Brick brick;
 	Clock clock;
-	JButton replay, undo, pause, resume;
+	JButton replay, undo, pause, start;
 	static Stack<Ball> ballObjects;
 	static Stack<Paddle> paddleObjects;
 	static Stack<Clock> clockObjects;
 	static Stack<Brick> brickObjects;
-	int breakLoop = 0;
-
+	static int breakLoop = 1; 
+	int play = 0, pauseChecker = 0, startChecker = 0;
+	
+	
 	Breakout()
 	{
 				
@@ -53,12 +55,16 @@ public class Breakout extends JPanel {
 		undo.setFocusable(false);
 		pause = new JButton("Pause");
 		pause.setFocusable(false);
-		resume = new JButton("Resume");
-		resume.setFocusable(false);
+		start = new JButton("Start");
+		start.setFocusable(false);
+		pause.addActionListener(this);
+		start.addActionListener(this);
+		undo.addActionListener(this);
+		replay.addActionListener(this);
 		this.add(replay);
 		this.add(undo);
 		this.add(pause);
-		this.add(resume);
+		this.add(start);
 		ballObjects = new Stack<Ball>();
 		paddleObjects = new Stack<Paddle>();
 		clockObjects = new Stack<Clock>();
@@ -69,9 +75,9 @@ public class Breakout extends JPanel {
 		
 	}
 	
-	public void paint(Graphics g)
+	public void paintComponent(Graphics g)
 	{
-		super.paint(g);
+		super.paintComponent(g);
 		g2d = (Graphics2D) g;
 		paddle.draw(g2d);
 		g2d.setColor(Color.YELLOW);
@@ -81,6 +87,7 @@ public class Breakout extends JPanel {
 		g2d.setColor(Color.red);
 		g.setFont(new Font("TimesRoman", Font.BOLD, 20));
 		clock.draw(g2d);
+		
 		
 		g2d.setColor(Color.ORANGE);
 		brick.draw(g2d);
@@ -97,86 +104,58 @@ public class Breakout extends JPanel {
 		}
 	}
 	
-	public void startGame(Ball ball, Paddle paddle, Brick brick, Clock clock)
+	public void startGame()
 	{		
-		pause.addActionListener(new ActionListener() {	
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				breakLoop = 1;
-			}
-		});
+		while(true)
+		{ System.out.print("");
 		
-		
-		
-		resume.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-			//	startGame() with current Instances;
-				//startGame(ball, paddle, brick, clock);
-			}
-		});
-		
-		undo.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				breakLoop = 1;
-				//popAll()
-			}
-		});
-		
-		replay.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				breakLoop = 1;
-				/*
-				 for stack size:
-					startGame(ball, paddle, brick, clock);
-					and set breakLoop to 1;
-				*/
-			}
-		});
-		
-		while(gameIsOn)
-		{
-			ball.moveBall();
-			brick.brickCollide(ball);
-			storeInstance(ball, paddle, clock, brick);	//clone objects before calling this
-			BreakoutObservable observable = new BreakoutObservable(paddle);
-			observable.notifyObservers();
-			
-			if(checkWin())
+			if(breakLoop == 0)
 			{
-				gameIsOn = false;
-				win = 1;
-			}
+				while(gameIsOn)
+				{
+					if(breakLoop == 1)
+					{
+						break;
+					}
+					ball.moveBall();
 			
-			try {
-				Thread.sleep(5);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+					brick.brickCollide(ball);
+					storeInstance(ball, paddle, clock, brick);	//clone objects before calling this
+					BreakoutObservable observable = new BreakoutObservable(paddle);
+					observable.notifyObservers();
 			
-			if(breakLoop == 1)
-			{
+					if(checkWin(brick))
+					{
+						gameIsOn = false;
+						win = 1;
+					}
+			
+					try {
+						Thread.sleep(5);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					repaint();
+
+				}
+			}
+			/*if(play == 1){ 
 				break;
+				}*/
+			if(breakLoop != 1)
+			{
+				ball.unregisterBall();
+				clock.unregisterClock();
 			}
-			
-			repaint();
 		}
 		
-		ball.unregisterBall();
-		clock.unregisterClock();
+		
 	}
+	
+	
 
-	public boolean checkWin()
+	public boolean checkWin(Brick brick)
 	{
 		for(int i = 0; i < 6; i++)
 		{
@@ -194,15 +173,79 @@ public class Breakout extends JPanel {
 	
 	public void storeInstance(Ball ball, Paddle paddle, Clock clock, Brick brick)
 	{
-		Ball cloneBall = new Ball(ball);
-		Paddle clonePaddle = new Paddle(paddle);
-		Brick cloneBrick = new Brick(brick);
-		Clock cloneClock = new Clock(clock);
+		Ball cloneBall = null;
+		Paddle clonePaddle = null;
+		Brick cloneBrick = null;
+		Clock cloneClock = null;
+		try {
+			cloneBall = (Ball) ball.clone();
+			clonePaddle = (Paddle) paddle.clone();
+			cloneBrick = (Brick) brick.clone();
+			cloneClock = (Clock) clock.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ballObjects.push(cloneBall);
 		paddleObjects.push(clonePaddle);
 		clockObjects.push(cloneClock);
 		brickObjects.push(cloneBrick);
 	}
-	
-	
+		
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+		if(e.getSource() == pause)
+		{
+			pauseChecker++;
+			if(pauseChecker % 2 == 0)
+			{
+				breakLoop = 0;
+				pause.setText("Pause");
+			}
+			else
+			{
+				breakLoop = 1;
+				pause.setText("Resume");
+			}
+		}
+		
+		else if(e.getSource() == start)
+		{
+			startChecker++;
+			if(startChecker == 1)
+			{
+				breakLoop = 0;
+				start.setText("Restart");
+			}
+			else
+			{
+				ball.setBx(800);
+				ball.setBy(500);
+				ball.setMoveX(1);
+				ball.setMoveY(1);
+				paddle.setPx(900);
+				paddle.setPy(970);
+				Brick brick = new Brick();
+				Clock clock = new Clock();
+				ball.registerBall();
+				clock.registerClock();
+				breakLoop = 0;
+				gameIsOn = true;
+				//set initial values then startGame()
+			}
+		}
+		
+		else if(e.getSource() == undo)
+		{
+			
+		}
+		
+		else if(e.getSource() == replay)
+		{
+			
+		}
+
+	}	
 }
