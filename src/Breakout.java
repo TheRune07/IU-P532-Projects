@@ -33,8 +33,8 @@ public class Breakout extends JPanel implements ActionListener {
 	static Stack<Paddle> paddleObjects;
 	static Stack<Clock> clockObjects;
 	static Stack<Brick> brickObjects;
-	static int breakLoop = 0; 
-	int play = 0, pauseChecker = 0;
+	static int breakLoop = 1; 
+	int play = 0, pauseChecker = 0, startChecker = 0;
 	
 	
 	Breakout()
@@ -107,7 +107,7 @@ public class Breakout extends JPanel implements ActionListener {
 	public void startGame()
 	{		
 		while(true)
-		{ System.out.println();
+		{ System.out.print("");
 		
 			if(breakLoop == 0)
 			{
@@ -140,16 +140,17 @@ public class Breakout extends JPanel implements ActionListener {
 
 				}
 			}
-			if(play == 1){ 
+			/*if(play == 1){ 
 				break;
-				}
+				}*/
+			if(breakLoop != 1)
+			{
+				ball.unregisterBall();
+				clock.unregisterClock();
+			}
 		}
 		
-		if(breakLoop != 1)
-		{
-			ball.unregisterBall();
-			clock.unregisterClock();
-		}
+		
 	}
 	
 	
@@ -212,23 +213,38 @@ public class Breakout extends JPanel implements ActionListener {
 		
 		else if(e.getSource() == start)
 		{
-			
+			startChecker++;
+			if(startChecker == 1)
+			{
+				breakLoop = 0;
+				start.setText("Restart");
+			}
+			else
+			{
+				ball.setBx(800);
+				ball.setBy(500);
+				ball.setMoveX(1);
+				ball.setMoveY(1);
+				paddle.setPx(900);
+				paddle.setPy(970);
+				Brick brick = new Brick();
+				Clock clock = new Clock();
+				ball.registerBall();
+				clock.registerClock();
+				breakLoop = 0;
+				gameIsOn = true;
+				//set initial values then startGame()
+			}
 		}
 		
 		else if(e.getSource() == undo)
 		{
-				breakLoop = 1;
-				//popAll()
+			
 		}
 		
 		else if(e.getSource() == replay)
 		{
-			breakLoop = 1;
-			/*
-			 for stack size:1
-			 startGame(ball, paddle, brick, clock);
-			 and set breakLoop to 1;
-			*/
+			
 		}
 
 	}	
