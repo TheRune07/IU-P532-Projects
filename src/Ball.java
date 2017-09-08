@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 
 
 
-public class Ball implements Observer, Sprite 
+public class Ball implements Observer, Sprite, Cloneable
 {
 	int bx = 800;
 	int by = 500;
@@ -36,10 +36,21 @@ public class Ball implements Observer, Sprite
 		cloneBall = ball;
 	}
 	
+	Ball()
+	{
+		
+	}
+	
+	public Object clone() throws CloneNotSupportedException
+	{
+		return super.clone();	
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		Paddle paddle = (Paddle) arg;
+		
 		if(bx == 0){
 			moveX = 1;
 		}
@@ -80,7 +91,7 @@ public class Ball implements Observer, Sprite
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		g2d.drawImage(ball, bx, by, BALL_WIDTH, BALL_HEIGHT, new Breakout());	//make constants
+		g2d.drawImage(ball, bx, by, BALL_WIDTH, BALL_HEIGHT, new Breakout());	//make constants	
 	}
 	
 	int getBx()
