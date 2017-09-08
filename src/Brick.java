@@ -1,7 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class Brick implements Sprite {
+public class Brick implements Sprite, Cloneable {
 	
 	int[][] bricksX = new int[6][19];
 	int[][] bricksY = new int[6][19];
@@ -30,6 +30,12 @@ public class Brick implements Sprite {
 			bry = bry +40;
 		}
 	}
+	
+	public Object clone() throws CloneNotSupportedException
+	{
+		return super.clone();	
+	}
+	
 	
 	public boolean bottomCollision(int xBall, int yBall, int xBrick, int yBrick) 
 	{
