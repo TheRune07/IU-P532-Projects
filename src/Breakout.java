@@ -107,7 +107,7 @@ public class Breakout extends JPanel implements ActionListener {
 	public void startGame()
 	{		
 		while(true)
-		{ System.out.println("");
+		{ System.out.println();
 		
 			if(breakLoop == 0)
 			{
