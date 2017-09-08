@@ -5,19 +5,30 @@ import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
 
-public class Paddle implements KeyListener, Sprite
+public class Paddle implements KeyListener, Sprite, Cloneable
 {
 	int px = 900;
 	int py = 970;
 	final int PADDLE_WIDTH = 150;
 	final int PADDLE_HEIGHT = 20;
 	Image paddle;
+	Paddle clonePaddle;
 	
 	Paddle(Image paddle, int px, int py)
 	{
 		this.paddle = paddle;
 		this.px = px;
 		this.py = py;
+	}
+	
+	Paddle(Paddle paddle)
+	{
+		clonePaddle = paddle;
+	}
+	
+	public Object clone() throws CloneNotSupportedException
+	{
+		return super.clone();	
 	}
 	
 	@Override

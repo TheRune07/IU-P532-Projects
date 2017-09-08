@@ -8,8 +8,9 @@ import java.util.Observer;
 import javax.swing.ImageIcon;
 
 
-// added some comments to check branching
-public class Ball implements Observer, Sprite 
+
+public class Ball implements Observer, Sprite, Cloneable
+
 {
 	int bx = 800;
 	int by = 500;
@@ -17,6 +18,7 @@ public class Ball implements Observer, Sprite
 	int moveY =1;
 	final int BALL_WIDTH = 25;
 	final int BALL_HEIGHT = 25;
+	Ball cloneBall;
 	
 	private Image ball = new ImageIcon("C:\\Users\\kshitij\\Desktop\\soccerball.png").getImage();;
 	
@@ -30,10 +32,26 @@ public class Ball implements Observer, Sprite
 		this.moveY = moveY;
 	}
 	
+	Ball(Ball ball)
+	{
+		cloneBall = ball;
+	}
+	
+	Ball()
+	{
+		
+	}
+	
+	public Object clone() throws CloneNotSupportedException
+	{
+		return super.clone();	
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		Paddle paddle = (Paddle) arg;
+		
 		if(bx == 0){
 			moveX = 1;
 		}
@@ -74,7 +92,7 @@ public class Ball implements Observer, Sprite
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		g2d.drawImage(ball, bx, by, BALL_WIDTH, BALL_HEIGHT, new Breakout());	//make constants
+		g2d.drawImage(ball, bx, by, BALL_WIDTH, BALL_HEIGHT, new Breakout());	//make constants	
 	}
 	
 	int getBx()

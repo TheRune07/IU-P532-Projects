@@ -38,7 +38,7 @@ public class BreakoutObservable extends Observable
 				observers.get(i).update(this, paddle);
 			}
 			else{
-			observers.get(i).update(this, null);
+			observers.get(i).update(this, paddle);
 			}
 			Breakout breakout = new Breakout();
 			breakout.repaint();

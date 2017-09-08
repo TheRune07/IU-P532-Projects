@@ -5,7 +5,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 
-public class Main {
+public class Main
+{
+	static Breakout breakout;
+	
 	public static void main(String args[])
 	{
 		final int FRAME_WIDTH = 1920;
@@ -24,12 +27,13 @@ public class Main {
 		Brick brick = new Brick();
 		Clock clock = new Clock();
 		
-		Breakout breakout = new Breakout(ball, paddle, brick, clock);
+		breakout = new Breakout(ball, paddle, brick, clock);
 		breakout.setSize(FRAME_WIDTH,FRAME_HEIGHT);
 		frame.add(breakout);
 		//frame.setBackground(Color.YELLOW);
 
 		frame.setVisible(true);
-		breakout.startGame();
+		breakout.startGame(ball, paddle, brick, clock);
+		
 	}
 }

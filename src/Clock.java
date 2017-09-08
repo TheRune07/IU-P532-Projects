@@ -3,20 +3,31 @@ import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Clock implements Observer, Sprite{
+public class Clock implements Observer, Sprite, Cloneable{
 
 	String time = "";
 	long startTime;
+	Clock cloneClock;
 	
 	public Clock()
 	{
 		this.startTime =  System.nanoTime();
 	}
 	
+	Clock(Clock clock)
+	{
+		cloneClock = clock;
+	}
+	
+	public Object clone() throws CloneNotSupportedException
+	{
+		return super.clone();	
+	}
+	
+	
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
-		Date date = new Date();
 		Double timeElapsed = (System.nanoTime() - startTime) / 1000000000.0;
 		time = timeElapsed.toString();
 		time = time.substring(0, 6);
