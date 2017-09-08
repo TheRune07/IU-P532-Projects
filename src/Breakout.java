@@ -79,12 +79,12 @@ public class Breakout extends JPanel implements ActionListener {
 	{
 		super.paintComponent(g);
 		g2d = (Graphics2D) g;
-		paddle.draw(g2d);
-		g2d.setColor(Color.YELLOW);
 		
+		//drawing paddle
+		paddle.draw(g2d);	
+		//drawing ball
 		ball.draw(g2d);
 		
-		g2d.setColor(Color.red);
 		g.setFont(new Font("TimesRoman", Font.BOLD, 20));
 		clock.draw(g2d);
 		

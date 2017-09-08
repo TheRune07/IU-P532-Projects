@@ -19,11 +19,8 @@ public class Main
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Breakout!");
 		
-		Image ballImage = new ImageIcon("C:\\Users\\kshitij\\Desktop\\soccerball.png").getImage();
-		Image paddleImage = new ImageIcon("C:\\Users\\kshitij\\Desktop\\paddle.jpg").getImage();
-		
-		Ball ball = new Ball(ballImage, 800, 500, 1, 1);
-		Paddle paddle = new Paddle(paddleImage, 900, 970);
+		Ball ball = new Ball(800, 500, 1, 1);
+		Paddle paddle = new Paddle(900, 970);
 		Brick brick = new Brick();
 		Clock clock = new Clock();
 		

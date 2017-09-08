@@ -1,9 +1,7 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import javax.swing.ImageIcon;
 
 public class Paddle implements KeyListener, Sprite, Cloneable
 {
@@ -11,12 +9,11 @@ public class Paddle implements KeyListener, Sprite, Cloneable
 	int py = 970;
 	final int PADDLE_WIDTH = 150;
 	final int PADDLE_HEIGHT = 20;
-	Image paddle;
+	
 	Paddle clonePaddle;
 	
-	Paddle(Image paddle, int px, int py)
+	Paddle(int px, int py)
 	{
-		this.paddle = paddle;
 		this.px = px;
 		this.py = py;
 	}
@@ -38,16 +35,20 @@ public class Paddle implements KeyListener, Sprite, Cloneable
 		if(px != 0)
 		{
 			if (key == 37) {
+				// moving the paddle left
 				px = px - 50;
+				
 			}
 		}
 		if(px != 1750)
 		{
 			if (key == 39) {
+				// moving the paddle right
 				px = px + 50;
 			}
 		
 		}
+		
 	}
 	@Override
 	public void keyReleased(KeyEvent arg0) {
@@ -59,10 +60,11 @@ public class Paddle implements KeyListener, Sprite, Cloneable
 		// TODO Auto-generated method stub
 		
 	}
+	
 	@Override
 	public void draw(Graphics2D g2d) {
-		// TODO Auto-generated method stub
-		g2d.drawImage(paddle, px, py, PADDLE_WIDTH, PADDLE_HEIGHT, new Breakout());
+		g2d.setColor(Color.GREEN);
+        g2d.fillRect(px,py,PADDLE_WIDTH,PADDLE_HEIGHT);
 	}
 	
 	int getPx()
