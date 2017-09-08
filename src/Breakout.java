@@ -203,11 +203,13 @@ public class Breakout extends JPanel implements ActionListener {
 			{
 				breakLoop = 0;
 				pause.setText("Pause");
+				clock.pauseFlag = 0;
 			}
 			else
 			{
 				breakLoop = 1;
 				pause.setText("Resume");
+				clock.pauseFlag = 1;
 			}
 		}
 		
@@ -227,8 +229,8 @@ public class Breakout extends JPanel implements ActionListener {
 				ball.setMoveY(1);
 				paddle.setPx(900);
 				paddle.setPy(970);
-				Brick brick = new Brick();
-				Clock clock = new Clock();
+				this.brick = new Brick();
+				this.clock = new Clock();
 				ball.registerBall();
 				clock.registerClock();
 				breakLoop = 0;
