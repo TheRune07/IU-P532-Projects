@@ -9,12 +9,12 @@ import java.util.Observer;
 public class Ball implements Observer, Sprite, Cloneable
 
 {
-	int bx = 800;
-	int by = 500;
-	int moveX = 1;
-	int moveY =1;
-	final int BALL_WIDTH = 25;
-	final int BALL_HEIGHT = 25;
+	int bx = Constants.BALL_POS_X;
+	int by = Constants.BALL_POS_Y;
+	int moveX = Constants.BALL_VEL_X;
+	int moveY =Constants.BALL_VEL_Y;
+	int BALL_WIDTH = Constants.BALL_WIDTH;
+	int BALL_HEIGHT = Constants.BALL_HEIGHT;
 	Ball cloneBall;
 	
 	Ball(int bx, int by, int moveX, int moveY)
@@ -48,13 +48,13 @@ public class Ball implements Observer, Sprite, Cloneable
 		if(bx == 0){
 			moveX = 1;
 		}
-		if(bx == 1870){
+		if(bx == Constants.BOARD_WIDTH - 20){
 			moveX = -1;
 		}
 		if(by == 0){
 			moveY = 1;
 		}
-		if(by == 1030){
+		if(by == Constants.BOARD_HEIGHT){
 			Breakout.gameIsOn = false;
 		}
 		
@@ -85,7 +85,7 @@ public class Ball implements Observer, Sprite, Cloneable
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		g2d.setColor(Color.RED);
+		g2d.setColor(Constants.BALL_COLOR);
         g2d.fillOval(bx, by, BALL_WIDTH, BALL_HEIGHT);
 	}
 	
