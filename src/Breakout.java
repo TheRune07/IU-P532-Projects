@@ -28,13 +28,13 @@ public class Breakout extends JPanel implements ActionListener {
 	Paddle paddle;
 	Brick brick;
 	Clock clock;
-	JButton replay, undo, pause, resume;
+	JButton replay, undo, pause, start;
 	static Stack<Ball> ballObjects;
 	static Stack<Paddle> paddleObjects;
 	static Stack<Clock> clockObjects;
 	static Stack<Brick> brickObjects;
 	static int breakLoop = 0; 
-	int play = 0;
+	int play = 0, pauseChecker = 0;
 	
 	
 	Breakout()
@@ -55,16 +55,16 @@ public class Breakout extends JPanel implements ActionListener {
 		undo.setFocusable(false);
 		pause = new JButton("Pause");
 		pause.setFocusable(false);
-		resume = new JButton("Resume");
-		resume.setFocusable(false);
+		start = new JButton("Start");
+		start.setFocusable(false);
 		pause.addActionListener(this);
-		resume.addActionListener(this);
+		start.addActionListener(this);
 		undo.addActionListener(this);
 		replay.addActionListener(this);
 		this.add(replay);
 		this.add(undo);
 		this.add(pause);
-		this.add(resume);
+		this.add(start);
 		ballObjects = new Stack<Ball>();
 		paddleObjects = new Stack<Paddle>();
 		clockObjects = new Stack<Clock>();
@@ -197,14 +197,22 @@ public class Breakout extends JPanel implements ActionListener {
 		
 		if(e.getSource() == pause)
 		{
-			breakLoop = 1;
+			pauseChecker++;
+			if(pauseChecker % 2 == 0)
+			{
+				breakLoop = 0;
+				pause.setText("Pause");
+			}
+			else
+			{
+				breakLoop = 1;
+				pause.setText("Resume");
+			}
 		}
 		
-		else if(e.getSource() == resume)
+		else if(e.getSource() == start)
 		{
-			breakLoop = 0;
-			System.out.println("sadsad");
-			repaint();
+			
 		}
 		
 		else if(e.getSource() == undo)
