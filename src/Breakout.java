@@ -229,8 +229,8 @@ public class Breakout extends JPanel implements ActionListener {
 				ball.setMoveY(Constants.BALL_VEL_Y);
 				paddle.setPx(Constants.PADDLE_POS_X);
 				paddle.setPy(Constants.PADDLE_POS_Y);
-				Brick brick = new Brick();
-				Clock clock = new Clock();
+				this.brick = new Brick();
+				this.clock = new Clock();
 				ball.registerBall();
 				clock.registerClock();
 				breakLoop = 0;
