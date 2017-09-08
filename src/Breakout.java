@@ -203,11 +203,13 @@ public class Breakout extends JPanel implements ActionListener {
 			{
 				breakLoop = 0;
 				pause.setText("Pause");
+				clock.pauseFlag = 0;
 			}
 			else
 			{
 				breakLoop = 1;
 				pause.setText("Resume");
+				clock.pauseFlag = 1;
 			}
 		}
 		
