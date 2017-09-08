@@ -1,12 +1,9 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.swing.ImageIcon;
-
 
 
 public class Ball implements Observer, Sprite, Cloneable
@@ -20,12 +17,8 @@ public class Ball implements Observer, Sprite, Cloneable
 	final int BALL_HEIGHT = 25;
 	Ball cloneBall;
 	
-	private Image ball = new ImageIcon("C:\\Users\\kshitij\\Desktop\\soccerball.png").getImage();;
-	
-	
-	Ball(Image ball, int bx, int by, int moveX, int moveY)
+	Ball(int bx, int by, int moveX, int moveY)
 	{
-		this.ball = ball;
 		this.bx = bx;
 		this.by = by;
 		this.moveX = moveX;
@@ -92,7 +85,8 @@ public class Ball implements Observer, Sprite, Cloneable
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		g2d.drawImage(ball, bx, by, BALL_WIDTH, BALL_HEIGHT, new Breakout());	//make constants	
+		g2d.setColor(Color.RED);
+        g2d.fillOval(bx, by, BALL_WIDTH, BALL_HEIGHT);
 	}
 	
 	int getBx()
