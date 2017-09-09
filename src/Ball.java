@@ -48,7 +48,7 @@ public class Ball implements Observer, Sprite, Cloneable
 		if(bx == 0){
 			moveX = 3;
 		}
-		if(bx == Constants.BOARD_WIDTH-50){
+		if(bx >= Constants.BOARD_WIDTH-30){			
 			moveX = -3;
 		}
 		if(by == 0){
