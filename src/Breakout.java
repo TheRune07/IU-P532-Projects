@@ -95,7 +95,7 @@ public class Breakout extends JPanel implements ActionListener {
 		g2d.setColor(Color.ORANGE);
 		brick.draw(g2d);
 		
-		if(!gameIsOn && win != 1)
+		if(this.ball.getBy() >= Constants.BOARD_HEIGHT-20)
 		{
 			g2d.setColor(Color.RED);
 			g2d.drawString("GAME OVER!", Constants.GAMEOVER_POS_X, Constants.GAMEOVER_POS_Y);

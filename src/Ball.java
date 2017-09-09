@@ -45,13 +45,13 @@ public class Ball implements Observer, Sprite, Cloneable
 		// TODO Auto-generated method stub
 		Paddle paddle = (Paddle) arg;
 		
-		if(bx == 0){
+		if(bx <= 5){
 			moveX = 3;
 		}
 		if(bx >= Constants.BOARD_WIDTH-30){			
 			moveX = -3;
 		}
-		if(by == 0){
+		if(by <=  5){
 			moveY = 3;
 		}
 		if(by == Constants.BOARD_HEIGHT){
@@ -62,6 +62,8 @@ public class Ball implements Observer, Sprite, Cloneable
 				&& (by + BALL_HEIGHT >= paddle.getPy()) && ( by <= by + paddle.getPaddleHeight()))
 			moveY = -3;	
 	}
+	//if ((ballPosX >= paddleXPos) && (ballPosX <= paddleXPos + paddleWidth)
+           // && ((ballPosY >= paddleYPos - ballRadius) && (ballPosY <= paddleYPos + paddleHeight)))
 	
 	public void registerBall()
 	{
