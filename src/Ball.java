@@ -12,7 +12,8 @@ public class Ball implements Observer, Sprite, Cloneable
 	int bx = 800;
 	int by = 500;
 	int moveX = 1;
-	int moveY =1;
+	int moveY = 
+			1;
 	final int BALL_WIDTH = 25;
 	final int BALL_HEIGHT = 25;
 	Ball cloneBall;
@@ -78,8 +79,8 @@ public class Ball implements Observer, Sprite, Cloneable
 	
 	public void moveBall()
 	{
-		bx = bx + moveX;
-		by = by + moveY;
+		bx = bx + 10;
+		by = by + 10;
 	}
 
 	@Override

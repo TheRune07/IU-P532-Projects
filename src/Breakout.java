@@ -28,6 +28,7 @@ public class Breakout extends JPanel implements ActionListener {
 	Paddle paddle;
 	Brick brick;
 	Clock clock;
+	Clock tempclock;
 	JButton replay, undo, pause, start;
 	static Stack<Ball> ballObjects;
 	static Stack<Paddle> paddleObjects;
@@ -35,6 +36,7 @@ public class Breakout extends JPanel implements ActionListener {
 	static Stack<Brick> brickObjects;
 	static int breakLoop = 1; 
 	int play = 0, pauseChecker = 0, startChecker = 0;
+	BreakoutObservable observable ;
 	
 	
 	Breakout()
@@ -73,6 +75,7 @@ public class Breakout extends JPanel implements ActionListener {
 		this.ball.registerBall();
 		this.clock.registerClock();
 		
+		observable = new BreakoutObservable(paddle);
 	}
 	
 	public void paintComponent(Graphics g)
@@ -121,7 +124,7 @@ public class Breakout extends JPanel implements ActionListener {
 			
 					brick.brickCollide(ball);
 					storeInstance(ball, paddle, clock, brick);	//clone objects before calling this
-					BreakoutObservable observable = new BreakoutObservable(paddle);
+					//BreakoutObservable observable = new BreakoutObservable(paddle);
 					observable.notifyObservers();
 			
 					if(checkWin(brick))
@@ -131,7 +134,7 @@ public class Breakout extends JPanel implements ActionListener {
 					}
 			
 					try {
-						Thread.sleep(5);
+						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -241,7 +244,28 @@ public class Breakout extends JPanel implements ActionListener {
 		
 		else if(e.getSource() == undo)
 		{
+			breakLoop = 1;
+			if(!ballObjects.isEmpty())
+				this.ball = ballObjects.pop();
+			if(!paddleObjects.isEmpty())
+				this.paddle = paddleObjects.pop();
+			if(!brickObjects.isEmpty())
+				this.brick = brickObjects.pop();
+			if(!clockObjects.isEmpty()){
+				tempclock = clockObjects.pop();
+				this.clock.clockMinutes = tempclock.clockMinutes;
+				this.clock.clockSeconds = tempclock.clockSeconds;
+			}
 			
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException a) {
+				// TODO Auto-generated catch block
+				a.printStackTrace();
+			}
+			
+			breakLoop = 0;
+			this.repaint();
 		}
 		
 		else if(e.getSource() == replay)
