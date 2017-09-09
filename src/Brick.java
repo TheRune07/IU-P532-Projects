@@ -18,7 +18,10 @@ public class Brick implements Sprite, Cloneable {
 	{
 		int brx = 0;
 		int bry = 0;
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 		for(int i = 0; i < Constants.BRICK_ROW; i++) // put in initializeBricks
 		{
 			for(int j = 0; j < Constants.BRICK_COLUMN; j++)

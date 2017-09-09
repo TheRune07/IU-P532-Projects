@@ -40,7 +40,6 @@ public class Paddle implements KeyListener, Sprite, Cloneable
 				
 			}
 		}
-		
 		if(px < Constants.BOARD_WIDTH-120)
 		{
 			if (key == 39) {
