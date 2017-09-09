@@ -21,8 +21,8 @@ public class Constants {
 		//Ball Constants
 		public static int BALL_POS_X = 120; 	//X-coordinate position of ball
 		public static int BALL_POS_Y = 200;	//Y-coordinate position of ball
-		public static int BALL_VEL_X = 10;	//Velocity on X-axis
-		public static int BALL_VEL_Y = 10;	//Velocity on Y-axis
+		public static int BALL_VEL_X = 3;	//Velocity on X-axis
+		public static int BALL_VEL_Y = 3;	//Velocity on Y-axis
 		public static Color BALL_COLOR = Color.RED;  //Ball Color
 		public static int BALL_WIDTH = 25;
 		public static int BALL_HEIGHT = 25;

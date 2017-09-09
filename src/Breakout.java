@@ -234,6 +234,7 @@ public class Breakout extends JPanel implements ActionListener {
 				paddle.setPy(Constants.PADDLE_POS_Y);
 				this.brick = new Brick();
 				this.clock = new Clock();
+				this.addKeyListener(this.paddle);
 				ball.registerBall();
 				clock.registerClock();
 				breakLoop = 0;
@@ -248,8 +249,10 @@ public class Breakout extends JPanel implements ActionListener {
 			breakLoop = 1;
 			if(!ballObjects.isEmpty())
 				this.ball = ballObjects.pop();
-			if(!paddleObjects.isEmpty())
+			if(!paddleObjects.isEmpty()){
 				this.paddle = paddleObjects.pop();
+				this.addKeyListener(this.paddle);
+			}
 			if(!brickObjects.isEmpty())
 				this.brick = brickObjects.pop();
 			if(!clockObjects.isEmpty()){
