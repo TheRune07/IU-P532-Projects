@@ -60,8 +60,7 @@ public class Ball implements Observer, Sprite, Cloneable
 		
 		if((bx >= paddle.getPx()) && (bx <= paddle.getPx() + paddle.getPaddleWidth())
 				&& (by + BALL_HEIGHT >= paddle.getPy()) && ( by <= by + paddle.getPaddleHeight()))
-			moveY = -10;
-		
+			moveY = -10;	
 	}
 	
 	public void registerBall()

@@ -11,6 +11,7 @@ public class Main
 	
 	public static void main(String args[])
 	{
+		
 //		final int FRAME_WIDTH = BOARD_HEIGHT;
 //		final int FRAME_HEIGHT = BOARD_HEIGHT;
 		JFrame frame = new JFrame();

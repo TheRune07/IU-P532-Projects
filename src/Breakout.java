@@ -239,6 +239,7 @@ public class Breakout extends JPanel implements ActionListener {
 				breakLoop = 0;
 				gameIsOn = true;
 				win = 0;
+				
 				//set initial values then startGame()
 			}
 		}
