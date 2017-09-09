@@ -46,13 +46,13 @@ public class Ball implements Observer, Sprite, Cloneable
 		Paddle paddle = (Paddle) arg;
 		
 		if(bx == 0){
-			moveX = 1;
+			moveX = 10;
 		}
 		if(bx == Constants.BOARD_WIDTH-30){
-			moveX = -1;
+			moveX = -10;
 		}
 		if(by == 0){
-			moveY = 1;
+			moveY = 10;
 		}
 		if(by == Constants.BOARD_HEIGHT){
 			Breakout.gameIsOn = false;
@@ -60,7 +60,7 @@ public class Ball implements Observer, Sprite, Cloneable
 		
 		if((bx >= paddle.getPx()) && (bx <= paddle.getPx() + paddle.getPaddleWidth())
 				&& (by + BALL_HEIGHT >= paddle.getPy()) && ( by <= by + paddle.getPaddleHeight()))
-			moveY = -1;
+			moveY = -10;
 		
 	}
 	
@@ -78,6 +78,7 @@ public class Ball implements Observer, Sprite, Cloneable
 	
 	public void moveBall()
 	{
+		// I am changing these values temporarily 
 		bx = bx + moveX;
 		by = by + moveY;
 	}
