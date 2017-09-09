@@ -91,7 +91,8 @@ public class Breakout extends JPanel implements ActionListener {
 		
 		paddle.draw(g2d);	
 		//drawing ball
-		g2d.fillOval(ball.getBx(), ball.getBy(), 25, 25);
+		ball.draw(g2d);
+		//g2d.fillOval(ball.getBx(), ball.getBy(), 25, 25);
 		
 		g.setFont(new Font("TimesRoman", Font.BOLD, 20));
 		clock.draw(g2d);
