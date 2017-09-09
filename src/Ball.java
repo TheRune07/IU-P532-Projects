@@ -1,30 +1,24 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.ImageIcon;
-
-
 
 public class Ball implements Observer, Sprite, Cloneable
+
 {
-	int bx = 800;
-	int by = 500;
-	int moveX = 1;
-	int moveY =1;
-	final int BALL_WIDTH = 25;
-	final int BALL_HEIGHT = 25;
+	int bx = Constants.BALL_POS_X;
+	int by = Constants.BALL_POS_Y;
+	int moveX = Constants.BALL_VEL_X;
+	int moveY =Constants.BALL_VEL_Y;
+	final int BALL_WIDTH = Constants.BALL_WIDTH;
+	final int BALL_HEIGHT = Constants.BALL_HEIGHT;
 	Ball cloneBall;
 	
-	private Image ball = new ImageIcon("C:\\Users\\kshitij\\Desktop\\soccerball.png").getImage();;
-	
-	
-	Ball(Image ball, int bx, int by, int moveX, int moveY)
+	Ball(int bx, int by, int moveX, int moveY)
 	{
-		this.ball = ball;
 		this.bx = bx;
 		this.by = by;
 		this.moveX = moveX;
@@ -52,21 +46,21 @@ public class Ball implements Observer, Sprite, Cloneable
 		Paddle paddle = (Paddle) arg;
 		
 		if(bx == 0){
-			moveX = 1;
+			moveX = 10;
 		}
-		if(bx == 1870){
-			moveX = -1;
+		if(bx == Constants.BOARD_WIDTH-30){
+			moveX = -10;
 		}
 		if(by == 0){
-			moveY = 1;
+			moveY = 10;
 		}
-		if(by == 1030){
+		if(by == Constants.BOARD_HEIGHT){
 			Breakout.gameIsOn = false;
 		}
 		
 		if((bx >= paddle.getPx()) && (bx <= paddle.getPx() + paddle.getPaddleWidth())
 				&& (by + BALL_HEIGHT >= paddle.getPy()) && ( by <= by + paddle.getPaddleHeight()))
-			moveY = -1;
+			moveY = -10;
 		
 	}
 	
@@ -84,6 +78,7 @@ public class Ball implements Observer, Sprite, Cloneable
 	
 	public void moveBall()
 	{
+		// I am changing these values temporarily 
 		bx = bx + moveX;
 		by = by + moveY;
 	}
@@ -91,7 +86,8 @@ public class Ball implements Observer, Sprite, Cloneable
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		g2d.drawImage(ball, bx, by, BALL_WIDTH, BALL_HEIGHT, new Breakout());	//make constants	
+		g2d.setColor(Color.RED);
+        g2d.fillOval(bx, by, BALL_WIDTH, BALL_HEIGHT);
 	}
 	
 	int getBx()

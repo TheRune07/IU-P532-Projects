@@ -1,19 +1,33 @@
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Clock implements Observer, Sprite, Cloneable{
+import javax.swing.JComponent;
+import javax.swing.JTextArea;
+import javax.swing.Timer;
 
-	String time = "";
-	long startTime;
+
+public class Clock implements Observer, Sprite, Cloneable,ActionListener{
+	
+	
+    protected int clockSeconds =0;
+	protected int clockMinutes = 0;
+	protected Timer t;
+	private int timerStartFlag = 0;
+	protected int pauseFlag = 0;
+	  
 	Clock cloneClock;
+	  
+	public Clock() { 
+	    t = new Timer(1000,this);	   
+	}  
 	
-	public Clock()
-	{
-		this.startTime =  System.nanoTime();
-	}
-	
+	  
 	Clock(Clock clock)
 	{
 		cloneClock = clock;
@@ -27,10 +41,13 @@ public class Clock implements Observer, Sprite, Cloneable{
 	
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		Double timeElapsed = (System.nanoTime() - startTime) / 1000000000.0;
-		time = timeElapsed.toString();
-		time = time.substring(0, 6);
+		
+		if(timerStartFlag <= 0){
+			t.start();
+			timerStartFlag++;
+		}
+		
+		
 	}
 	
 	public void registerClock()
@@ -47,9 +64,40 @@ public class Clock implements Observer, Sprite, Cloneable{
 
 	@Override
 	public void draw(Graphics2D g2d) {
-		// TODO Auto-generated method stub
-		g2d.drawString(time, 1850, 24);
 		
+		// g2d.setColor(Color.GREEN);
+		 //g2d.setFont(new Font("serif", Font.PLAIN,15));
+		 //g2d.drawString((" mm"+ "  :   "+ " ss"), 30, 10);
+		  
+		 g2d.setColor(Color.GREEN);
+		 g2d.setFont(new Font("serif", Font.BOLD,40));
+		 g2d.drawString((""+clockMinutes+ " : "+ clockSeconds), Constants.BOARD_WIDTH-100, 33);
+		  	
 	}
-	
+
+
+
+
+	  @Override
+		public void actionPerformed(ActionEvent e) {
+		  	if(pauseFlag == 0){
+				if(clockSeconds == 59){
+					clockMinutes++;
+					clockSeconds = 0;
+				}
+				else{
+					clockSeconds++;
+				}
+		  	}
+			 	  
+		}
+	  	 	
 }
+
+
+	
+	 
+	    
+		
+
+
