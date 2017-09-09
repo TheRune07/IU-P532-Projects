@@ -92,7 +92,7 @@ public class Breakout extends JPanel implements ActionListener {
 		g2d.setColor(Color.ORANGE);
 		brick.draw(g2d);
 		
-		if(!gameIsOn)
+		if(!gameIsOn && win != 1)
 		{
 			g2d.setColor(Color.RED);
 			g2d.drawString("GAME OVER!", Constants.GAMEOVER_POS_X, Constants.GAMEOVER_POS_Y);
@@ -235,6 +235,7 @@ public class Breakout extends JPanel implements ActionListener {
 				clock.registerClock();
 				breakLoop = 0;
 				gameIsOn = true;
+				win = 0;
 				//set initial values then startGame()
 			}
 		}
