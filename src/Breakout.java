@@ -33,9 +33,13 @@ public class Breakout extends JPanel implements ActionListener {
 	static Stack<Paddle> paddleObjects;
 	static Stack<Clock> clockObjects;
 	static Stack<Brick> brickObjects;
+	static ArrayList<Ball> ballList;
+	static ArrayList<Brick> brickList;
+	static ArrayList<Clock> clockList;
+	static ArrayList<Paddle> paddleList;
 	static int breakLoop = 1; 
-	int play = 0, pauseChecker = 0, startChecker = 0;
-	
+	int play = 0, pauseChecker = 0, startChecker = 0, undoCheck = 0;
+	Clock tempClock = new Clock();
 	
 	Breakout()
 	{
@@ -69,6 +73,10 @@ public class Breakout extends JPanel implements ActionListener {
 		paddleObjects = new Stack<Paddle>();
 		clockObjects = new Stack<Clock>();
 		brickObjects = new Stack<Brick>();
+		ballList = new ArrayList<Ball>();
+		brickList = new ArrayList<Brick>();
+		clockList = new ArrayList<Clock>();
+		paddleList = new ArrayList<Paddle>();
 		
 		this.ball.registerBall();
 		this.clock.registerClock();
@@ -79,11 +87,12 @@ public class Breakout extends JPanel implements ActionListener {
 	{
 		super.paintComponent(g);
 		g2d = (Graphics2D) g;
-		
 		//drawing paddle
+		
 		paddle.draw(g2d);	
 		//drawing ball
 		ball.draw(g2d);
+		//g2d.fillOval(ball.getBx(), ball.getBy(), 25, 25);
 		
 		g.setFont(new Font("TimesRoman", Font.BOLD, 20));
 		clock.draw(g2d);
@@ -92,19 +101,19 @@ public class Breakout extends JPanel implements ActionListener {
 		g2d.setColor(Color.ORANGE);
 		brick.draw(g2d);
 		
-		if(!gameIsOn)
+		if(!gameIsOn && win != 1)
 		{
 			g2d.setColor(Color.RED);
-			g2d.drawString("GAME OVER!", Constants.GAMEOVER_POS_X, Constants.GAMEOVER_POS_Y);
+			g2d.drawString("GAME OVER!", 200, 500);
 		}
 		if(win == 1)
 		{
 			g2d.setColor(Color.RED);
-			g2d.drawString("You are Victorious!", Constants.WIN_POS_X, Constants.WIN_POS_Y);
+			g2d.drawString("You are Victorious!", 200, 500);
 		}
 	}
 	
-	public void startGame()
+	public void startGame(Ball ball, Paddle paddle, Brick brick, Clock clock)
 	{		
 		while(true)
 		{ System.out.print("");
@@ -131,18 +140,14 @@ public class Breakout extends JPanel implements ActionListener {
 					}
 			
 					try {
-						Thread.sleep(5);
+						Thread.sleep(50);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					repaint();
-
 				}
 			}
-			/*if(play == 1){ 
-				break;
-				}*/
 			if(breakLoop != 1)
 			{
 				ball.unregisterBall();
@@ -157,9 +162,9 @@ public class Breakout extends JPanel implements ActionListener {
 
 	public boolean checkWin(Brick brick)
 	{
-		for(int i = 0; i < Constants.BRICK_ROW; i++)
+		for(int i = 0; i < 3; i++)
 		{
-			for(int j = 0; j < Constants.BRICK_COLUMN; j++)
+			for(int j = 0; j < 11; j++)
 			{
 				if(brick.getBricksX()[i][j] != -1)
 				{
@@ -177,10 +182,10 @@ public class Breakout extends JPanel implements ActionListener {
 		Paddle clonePaddle = null;
 		Brick cloneBrick = null;
 		Clock cloneClock = null;
-		try {
+		try { 
 			cloneBall = (Ball) ball.clone();
 			clonePaddle = (Paddle) paddle.clone();
-			cloneBrick = (Brick) brick.clone();
+			cloneBrick = (Brick) brick.copy(brick);
 			cloneClock = (Clock) clock.clone();
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
@@ -190,6 +195,11 @@ public class Breakout extends JPanel implements ActionListener {
 		paddleObjects.push(clonePaddle);
 		clockObjects.push(cloneClock);
 		brickObjects.push(cloneBrick);
+		
+		ballList.add(cloneBall);
+		paddleList.add(clonePaddle);
+		clockList.add(cloneClock);
+		brickList.add(cloneBrick);
 	}
 		
 	@Override
@@ -198,6 +208,10 @@ public class Breakout extends JPanel implements ActionListener {
 		
 		if(e.getSource() == pause)
 		{
+			if(undoCheck == 1){
+				breakLoop = 0;
+			}
+			else{
 			pauseChecker++;
 			if(pauseChecker % 2 == 0)
 			{
@@ -211,10 +225,11 @@ public class Breakout extends JPanel implements ActionListener {
 				pause.setText("Resume");
 				clock.pauseFlag = 1;
 			}
-		}
+		}}
+	
 		
 		else if(e.getSource() == start)
-		{
+		{	
 			startChecker++;
 			if(startChecker == 1)
 			{
@@ -223,30 +238,61 @@ public class Breakout extends JPanel implements ActionListener {
 			}
 			else
 			{
-				ball.setBx(Constants.BALL_POS_X);
-				ball.setBy(Constants.BALL_POS_Y);
-				ball.setMoveX(Constants.BALL_VEL_X);
-				ball.setMoveY(Constants.BALL_VEL_Y);
-				paddle.setPx(Constants.PADDLE_POS_X);
-				paddle.setPy(Constants.PADDLE_POS_Y);
-				this.brick = new Brick();
+				ball.setBx(300);
+				ball.setBy(300);
+				ball.setMoveX(5);
+				ball.setMoveY(5);
+				paddle.setPx(600);
+				paddle.setPy(600);
+				this.brick = new Brick(1);
 				this.clock = new Clock();
 				ball.registerBall();
 				clock.registerClock();
 				breakLoop = 0;
 				gameIsOn = true;
+				win = 0;
+				brickObjects.removeAllElements();
+				paddleObjects.removeAllElements();
+				ballObjects.removeAllElements();
+				clockObjects.removeAllElements();
 				//set initial values then startGame()
 			}
 		}
 		
 		else if(e.getSource() == undo)
 		{
-			
+			breakLoop = 1;
+			this.ball = ballObjects.pop();
+			this.brick = brickObjects.pop();
+			this.paddle = paddleObjects.pop();
+			tempClock = clockObjects.pop();
+			this.clock.clockMinutes = tempClock.clockMinutes;
+			this.clock.clockSeconds = tempClock.clockSeconds;
+			this.repaint();	
+			undoCheck = 1;
+			pause.setText("Resume");
 		}
 		
 		else if(e.getSource() == replay)
 		{
+			breakLoop = 1;
 			
+			for(int i = 0; i < ballList.size(); i++)
+			{
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				this.ball = ballList.get(i);
+				this.paddle = paddleList.get(i);
+				tempClock = clockList.get(i);
+				this.clock.clockMinutes = tempClock.clockMinutes;
+				this.clock.clockSeconds = tempClock.clockSeconds;
+				this.brick = brickList.get(i);
+				repaint();	//not working
+			}
 		}
 
 	}	

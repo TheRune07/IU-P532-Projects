@@ -5,10 +5,10 @@ import java.awt.event.KeyListener;
 
 public class Paddle implements KeyListener, Sprite, Cloneable
 {
-	int px = Constants.PADDLE_POS_X;
-	int py = Constants.PADDLE_POS_Y;
-	final int PADDLE_WIDTH = Constants.PADDLE_WIDTH;
-	final int PADDLE_HEIGHT = Constants.PADDLE_HEIGHT;
+	int px = 600;
+	int py = 600;
+	final int PADDLE_WIDTH = 150;
+	final int PADDLE_HEIGHT = 20;
 	
 	Paddle clonePaddle;
 	
@@ -40,7 +40,7 @@ public class Paddle implements KeyListener, Sprite, Cloneable
 				
 			}
 		}
-		if(px != Constants.BOARD_WIDTH-300)
+		if(px != 900)
 		{
 			if (key == 39) {
 				// moving the paddle right

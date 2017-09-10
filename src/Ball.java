@@ -9,12 +9,12 @@ import java.util.Observer;
 public class Ball implements Observer, Sprite, Cloneable
 
 {
-	int bx = Constants.BALL_POS_X;
-	int by = Constants.BALL_POS_Y;
-	int moveX = Constants.BALL_VEL_X;
-	int moveY =Constants.BALL_VEL_Y;
-	final int BALL_WIDTH = Constants.BALL_WIDTH;
-	final int BALL_HEIGHT = Constants.BALL_HEIGHT;
+	int bx = 200;
+	int by = 200;
+	int moveX = 5;
+	int moveY = 5;
+	final int BALL_WIDTH = 25;
+	final int BALL_HEIGHT = 25;
 	Ball cloneBall;
 	
 	Ball(int bx, int by, int moveX, int moveY)
@@ -46,21 +46,21 @@ public class Ball implements Observer, Sprite, Cloneable
 		Paddle paddle = (Paddle) arg;
 		
 		if(bx == 0){
-			moveX = 1;
+			moveX = 5;
 		}
-		if(bx == Constants.BOARD_WIDTH-30){
-			moveX = -1;
+		if(bx == 1200){
+			moveX = -5;
 		}
 		if(by == 0){
-			moveY = 1;
+			moveY = 5;
 		}
-		if(by == Constants.BOARD_HEIGHT){
+		if(by == 700){
 			Breakout.gameIsOn = false;
 		}
 		
 		if((bx >= paddle.getPx()) && (bx <= paddle.getPx() + paddle.getPaddleWidth())
 				&& (by + BALL_HEIGHT >= paddle.getPy()) && ( by <= by + paddle.getPaddleHeight()))
-			moveY = -1;
+			moveY = -5;
 		
 	}
 	
@@ -80,6 +80,7 @@ public class Ball implements Observer, Sprite, Cloneable
 	{
 		bx = bx + moveX;
 		by = by + moveY;
+		System.out.println(bx);
 	}
 
 	@Override

@@ -19,26 +19,31 @@ public class Constants {
 		public static Color BRICK_COLOR = Color.ORANGE;  
 		
 		//Ball Constants
-		public static int BALL_POS_X = 120; 	//X-coordinate position of ball
-		public static int BALL_POS_Y = 200;	//Y-coordinate position of ball
-		public static int BALL_VEL_X = 1;	//Velocity on X-axis
-		public static int BALL_VEL_Y = 1;	//Velocity on Y-axis
-		public static Color BALL_COLOR = Color.RED;  //Ball Color
-		public static int BALL_WIDTH = 25;
-		public static int BALL_HEIGHT = 25;
+		public int BALL_POS_X = 120; 	//X-coordinate position of ball
+		public int BALL_POS_Y = 200;	//Y-coordinate position of ball
+		public int BALL_VEL_X = 1;	//Velocity on X-axis
+		public int BALL_VEL_Y = 1;	//Velocity on Y-axis
+		public Color BALL_COLOR = Color.RED;  //Ball Color
+		public int BALL_WIDTH = 25;
+		public int BALL_HEIGHT = 25;
 		
 		//Paddle Constants
-		public static int PADDLE_POS_X = 300;
-		public static int PADDLE_POS_Y = BOARD_HEIGHT - 60;
-		public static int PADDLE_WIDTH = 100;
-		public static int PADDLE_HEIGHT = 20;
-		public static Color PADDLE_COLOR = Color.GREEN;
+		public int PADDLE_POS_X = 300;
+		public int PADDLE_POS_Y = BOARD_HEIGHT - 60;
+		public int PADDLE_WIDTH = 100;
+		public int PADDLE_HEIGHT = 20;
+		public Color PADDLE_COLOR = Color.GREEN;
 		
 		//Notifications
-		public static int GAMEOVER_POS_X= 200;
-		public static int GAMEOVER_POS_Y= 300;
+		public int GAMEOVER_POS_X= 220;
+		public int GAMEOVER_POS_Y= 300;
 		
-		public static int WIN_POS_X= 200;
-		public static int WIN_POS_Y= 300;
+		public int WIN_POS_X= 200;
+		public int WIN_POS_Y= 300;
+		
+		int getPosX()
+		{
+			return BALL_POS_X;
+		}
 		
 }
