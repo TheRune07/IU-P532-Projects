@@ -305,6 +305,9 @@ public class Breakout extends JPanel implements ActionListener {
 			{
 				StartGame = 0;
 				win = 0;
+				clock.pauseFlag = 0;
+				undoCheck = 0;
+				pause.setText("pause");
 				observable.deleteObservers();
 				ball.setBx(Constants.BALL_POS_X);
 				ball.setBy(Constants.BALL_POS_Y);
