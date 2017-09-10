@@ -10,8 +10,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Queue;
 import java.util.Stack;
 
 import javax.swing.ImageIcon;
@@ -33,12 +35,12 @@ public class Breakout extends JPanel implements ActionListener {
 	static Stack<Paddle> paddleObjects;
 	static Stack<Clock> clockObjects;
 	static Stack<Brick> brickObjects;
-	static ArrayList<Ball> ballList;
-	static ArrayList<Brick> brickList;
-	static ArrayList<Clock> clockList;
-	static ArrayList<Paddle> paddleList;
+	static Queue<Ball> ballQueue;
+	static Queue<Brick> brickQueue;
+	static Queue<Clock> clockQueue;
+	static Queue<Paddle> paddleQueue;
 	static int breakLoop = 1; 
-	int play = 0, pauseChecker = 0, startChecker = 0, undoCheck = 0;
+	int play = 0, pauseChecker = 0, startChecker = 0, undoCheck = 0, replayCheck = 0;
 	Clock tempClock = new Clock();
 	BreakoutObservable observable;
 	
@@ -74,11 +76,10 @@ public class Breakout extends JPanel implements ActionListener {
 		paddleObjects = new Stack<Paddle>();
 		clockObjects = new Stack<Clock>();
 		brickObjects = new Stack<Brick>();
-		ballList = new ArrayList<Ball>();
-		brickList = new ArrayList<Brick>();
-		clockList = new ArrayList<Clock>();
-		paddleList = new ArrayList<Paddle>();
-		
+		ballQueue = new LinkedList<Ball>();
+		brickQueue = new LinkedList<Brick>();
+		clockQueue = new LinkedList<Clock>();
+		paddleQueue = new LinkedList<Paddle>();
 		this.ball.registerBall();
 		this.clock.registerClock();
 		
@@ -89,7 +90,6 @@ public class Breakout extends JPanel implements ActionListener {
 		super.paintComponent(g);
 		g2d = (Graphics2D) g;
 		//drawing paddle
-		
 		paddle.draw(g2d);	
 		//drawing ball
 		ball.draw(g2d);
@@ -115,8 +115,38 @@ public class Breakout extends JPanel implements ActionListener {
 	
 	public void startGame()
 	{		
+		
 		while(true)
 		{ System.out.print("");
+			
+		if(replayCheck == 1)
+		{
+			for(int i = 0; i < ballQueue.size(); i++)
+			{
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				this.ball = ballQueue.poll();
+				this.paddle = paddleQueue.poll();
+				tempClock = clockQueue.poll();
+				this.clock.clockMinutes = tempClock.clockMinutes;
+				this.clock.clockSeconds = tempClock.clockSeconds;
+				this.brick = brickQueue.poll();
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				repaint();	//not working
+			}
+			breakLoop = 0;
+			this.addKeyListener(paddle);
+		}
+
 		
 			if(breakLoop == 0)
 			{
@@ -196,10 +226,10 @@ public class Breakout extends JPanel implements ActionListener {
 		clockObjects.push(cloneClock);
 		brickObjects.push(cloneBrick);
 		
-		ballList.add(cloneBall);
-		paddleList.add(clonePaddle);
-		clockList.add(cloneClock);
-		brickList.add(cloneBrick);
+		ballQueue.offer(cloneBall);
+		brickQueue.offer(cloneBrick);
+		clockQueue.offer(cloneClock);
+		paddleQueue.offer(clonePaddle);
 	}
 		
 	@Override
@@ -281,23 +311,7 @@ public class Breakout extends JPanel implements ActionListener {
 		else if(e.getSource() == replay)
 		{
 			breakLoop = 1;
-			
-			for(int i = 0; i < ballList.size(); i++)
-			{
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				this.ball = ballList.get(i);
-				this.paddle = paddleList.get(i);
-				tempClock = clockList.get(i);
-				this.clock.clockMinutes = tempClock.clockMinutes;
-				this.clock.clockSeconds = tempClock.clockSeconds;
-				this.brick = brickList.get(i);
-				repaint();	//not working
-			}
+			replayCheck = 1;			
 		}
 
 	}	
