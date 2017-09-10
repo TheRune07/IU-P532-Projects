@@ -1,12 +1,18 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public class Brick implements Sprite, Cloneable {
+public class Brick implements Sprite, Cloneable, Serializable {
 	
-	int[][] bricksX = new int[Constants.BRICK_ROW][Constants.BRICK_COLUMN];
-	int[][] bricksY = new int[Constants.BRICK_ROW][Constants.BRICK_COLUMN];
-	static final int BRICK_WIDTH = 50;
-	static final int BRICK_HEIGHT = 10;
+	int[][] bricksX;
+	int[][] bricksY;
+	static final int BRICK_WIDTH = Constants.BRICK_WIDTH;
+	static final int BRICK_HEIGHT = Constants.BRICK_HEIGHT;
 	Brick cloneBrick;
 	
 	Brick(Brick brick)
@@ -14,28 +20,44 @@ public class Brick implements Sprite, Cloneable {
 		cloneBrick = brick;
 	}
 	
-	public Brick()
-	{
-		int brx = 0;
-		int bry = 0;
-
-		for(int i = 0; i < Constants.BRICK_ROW; i++) // put in initializeBricks
-		{
-			for(int j = 0; j < Constants.BRICK_COLUMN; j++)
-			{
-				bricksX[i][j] = brx + 20;
-				bricksY[i][j] = bry + 40;
-				brx = brx + 80;
-			}
-			brx = 0;
-			bry = bry +40;
+	public Brick(int a) {
+		if (a == 1) {
+			bricksX = new int[Constants.BRICK_ROW][Constants.BRICK_COLUMN];
+			bricksY = new int[Constants.BRICK_ROW][Constants.BRICK_COLUMN];
+			BrickCommands brickCommands = new BrickCommands(this);
+			brickCommands.execute();
 		}
 	}
-	
-	public Object clone() throws CloneNotSupportedException
+
+	public Object clone() throws CloneNotSupportedException 
 	{
-		return super.clone();	
+		Brick clone = new Brick(0);
+		clone.bricksX = this.bricksX.clone();
+		clone.bricksY = this.bricksY.clone();
+		return clone;
 	}
+	
+	public Object copy(Object brick) {
+        Object obj = null;
+        try {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ObjectOutputStream out = new ObjectOutputStream(byteArrayOutputStream);
+            out.writeObject(brick);
+            out.flush();
+            out.close();
+
+            ObjectInputStream in = new ObjectInputStream(
+                new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
+            obj = in.readObject();
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+        catch(ClassNotFoundException cnfe) {
+            cnfe.printStackTrace();
+        }
+        return obj;
+    }
 	
 	
 	public boolean bottomCollision(int xBall, int yBall, int xBrick, int yBrick) 
@@ -82,14 +104,14 @@ public class Brick implements Sprite, Cloneable {
 			for(int j = 0; j < Constants.BRICK_COLUMN; j++)
 			{
 				if(bottomCollision(ball.getBx(), ball.getBy(), bricksX[i][j], bricksY[i][j])) {
-					ball.setMoveY(1);
+					ball.setMoveY(Constants.BALL_VEL_Y);	
 					bricksX[i][j] = -1;
 					bricksY[i][j] = -1;
 					
 				}
 				
 				if(topCollision(ball.getBx(), ball.getBy(), bricksX[i][j], bricksY[i][j])) {
-					ball.setMoveY(-1);
+					ball.setMoveY(-(Constants.BALL_VEL_Y));
 					bricksX[i][j] = -1;
 					bricksY[i][j] = -1;
 				}
@@ -118,7 +140,7 @@ public class Brick implements Sprite, Cloneable {
 			{
 				if(bricksX[i][j] != -1 && bricksX[i][j] != -1)
 				{
-					g2d.setColor(Color.ORANGE);
+					g2d.setColor(Constants.BRICK_COLOR);
 					g2d.fillRect(bricksX[i][j], bricksY[i][j], BRICK_WIDTH, BRICK_HEIGHT);
 				}
 			}
@@ -133,6 +155,16 @@ public class Brick implements Sprite, Cloneable {
 	int[][] getBricksY()
 	{
 		return bricksY;
+	}
+	
+	void setBricksX(int i, int j, int x)
+	{
+		bricksX[i][j] = x;
+	}
+	
+	void setBricksY(int i, int j, int x)
+	{
+		bricksY[i][j] = x;
 	}
 	
 }

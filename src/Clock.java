@@ -12,10 +12,11 @@ import javax.swing.JTextArea;
 import javax.swing.Timer;
 
 
-public class Clock implements Observer, Sprite, Cloneable,ActionListener{
+public class Clock implements Observer, Sprite, Cloneable, ActionListener{
 	
 	
     protected int clockSeconds =0;
+    protected int clockMiliSecs = 0;
 	protected int clockMinutes = 0;
 	protected Timer t;
 	private int timerStartFlag = 0;
@@ -24,7 +25,7 @@ public class Clock implements Observer, Sprite, Cloneable,ActionListener{
 	Clock cloneClock;
 	  
 	public Clock() { 
-	    t = new Timer(1000,this);	   
+	    t = new Timer(10,this);	   
 	}  
 	
 	  
@@ -64,15 +65,10 @@ public class Clock implements Observer, Sprite, Cloneable,ActionListener{
 
 	@Override
 	public void draw(Graphics2D g2d) {
-		
-		// g2d.setColor(Color.GREEN);
-		 //g2d.setFont(new Font("serif", Font.PLAIN,15));
-		 //g2d.drawString((" mm"+ "  :   "+ " ss"), 30, 10);
 		  
 		 g2d.setColor(Color.GREEN);
 		 g2d.setFont(new Font("serif", Font.BOLD,40));
-		 g2d.drawString((""+clockMinutes+ " : "+ clockSeconds), Constants.BOARD_WIDTH-100, 33);
-		 
+		 g2d.drawString((""+clockMinutes+ ":"+ clockSeconds + ":" + clockMiliSecs), (Constants.BOARD_WIDTH - 135), 33); 	
 	}
 
 
@@ -80,17 +76,43 @@ public class Clock implements Observer, Sprite, Cloneable,ActionListener{
 
 	  @Override
 		public void actionPerformed(ActionEvent e) {
-		  	if(pauseFlag == 0){
-				if(clockSeconds == 59){
-					clockMinutes++;
-					clockSeconds = 0;
-				}
-				else{
-					clockSeconds++;
-				}
+		  	if(pauseFlag == 0)
+		  	{
+		  		ClockCommands clockCommands = new ClockCommands(this);
+		  		clockCommands.execute();
 		  	}
 			 	  
 		}
+
+
+	public int getClockSeconds() {
+		return clockSeconds;
+	}
+
+
+	public void setClockSeconds(int clockSeconds) {
+		this.clockSeconds = clockSeconds;
+	}
+
+
+	public int getClockMiliSecs() {
+		return clockMiliSecs;
+	}
+
+
+	public void setClockMiliSecs(int clockMiliSecs) {
+		this.clockMiliSecs = clockMiliSecs;
+	}
+
+
+	public int getClockMinutes() {
+		return clockMinutes;
+	}
+
+
+	public void setClockMinutes(int clockMinutes) {
+		this.clockMinutes = clockMinutes;
+	}
 	  	 	
 }
 
