@@ -1,16 +1,13 @@
 import static org.junit.Assert.*;
 
-import java.awt.Graphics2D;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Stack;
-
-import javax.swing.JButton;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class testBreakout {
+public class TestBreakout {
 	/*-------------------------------------
 	 * Steps:
 	 * Set expected values for the given method
@@ -23,9 +20,6 @@ public class testBreakout {
 	private Brick brick;
 	private Paddle paddle;
 	private Clock clock;
-	
-	
-	
 	private Breakout breakout;
 	
 	
@@ -39,9 +33,9 @@ public class testBreakout {
 	}
 
 	/*
+	// XXX Use EasyMock to test if function is called
 	@Test
 	public void testStartGame() {
-		// TODO How?
 		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	    System.setOut(new PrintStream(outContent));
 	    breakout.startGame();
