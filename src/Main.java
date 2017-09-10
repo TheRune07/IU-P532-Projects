@@ -4,15 +4,20 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import org.apache.log4j.Logger;
+
+
 
 public class Main
 {
 	static Breakout breakout;
+	final static Logger logger = Logger.getLogger(Main.class);
 	
 	public static void main(String args[])
 	{
 //		final int FRAME_WIDTH = 1920;
 //		final int FRAME_HEIGHT = 1030;
+		logger.debug("Testing to check if log4j working fine");
 		final int FRAME_WIDTH = Constants.BOARD_WIDTH;
 		final int FRAME_HEIGHT = Constants.BOARD_HEIGHT;
 		JFrame frame = new JFrame();
