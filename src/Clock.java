@@ -71,8 +71,7 @@ public class Clock implements Observer, Sprite, Cloneable,ActionListener{
 		  
 		 g2d.setColor(Color.GREEN);
 		 g2d.setFont(new Font("serif", Font.BOLD,40));
-		 g2d.drawString((""+clockMinutes+ " : "+ clockSeconds), 800, 33);
-		  	
+		 g2d.drawString((""+clockMinutes+ " : "+ clockSeconds), 800, 33);	  	
 	}
 
 
