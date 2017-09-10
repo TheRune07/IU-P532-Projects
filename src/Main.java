@@ -11,16 +11,18 @@ public class Main
 	
 	public static void main(String args[])
 	{
-		final int FRAME_WIDTH = 1920;
-		final int FRAME_HEIGHT = 1030;
+//		final int FRAME_WIDTH = 1920;
+//		final int FRAME_HEIGHT = 1030;
+		final int FRAME_WIDTH = Constants.BOARD_WIDTH;
+		final int FRAME_HEIGHT = Constants.BOARD_HEIGHT;
 		JFrame frame = new JFrame();
-		frame.setSize(1920, 1030);
+		frame.setSize(Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Breakout!");
 		
-		Ball ball = new Ball(800, 500, 5, 5);
-		Paddle paddle = new Paddle(900, 970);
+		Ball ball = new Ball(Constants.BALL_POS_X, Constants.BALL_POS_Y, Constants.BALL_VEL_X, Constants.BALL_VEL_Y);
+		Paddle paddle = new Paddle(Constants.PADDLE_POS_X, Constants.PADDLE_POS_Y);
 		Brick brick = new Brick(1);
 		Clock clock = new Clock();
 		

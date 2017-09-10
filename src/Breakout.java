@@ -104,12 +104,12 @@ public class Breakout extends JPanel implements ActionListener {
 		if(!gameIsOn && win != 1)
 		{
 			g2d.setColor(Color.RED);
-			g2d.drawString("GAME OVER!", 870, 500);
+			g2d.drawString("GAME OVER!", Constants.GAMEOVER_POS_X, Constants.GAMEOVER_POS_Y);
 		}
 		if(win == 1)
 		{
 			g2d.setColor(Color.RED);
-			g2d.drawString("You are Victorious!", 870, 500);
+			g2d.drawString("You are Victorious!", Constants.WIN_POS_X, Constants.WIN_POS_Y);
 		}
 	}
 	
@@ -192,9 +192,9 @@ public class Breakout extends JPanel implements ActionListener {
 
 	public boolean checkWin(Brick brick)
 	{
-		for(int i = 0; i < 6; i++)
+		for(int i = 0; i < Constants.BRICK_ROW; i++)
 		{
-			for(int j = 0; j < 19; j++)
+			for(int j = 0; j < Constants.BRICK_COLUMN; j++)
 			{
 				if(brick.getBricksX()[i][j] != -1)
 				{
@@ -271,12 +271,12 @@ public class Breakout extends JPanel implements ActionListener {
 			else
 			{
 				observable.deleteObservers();
-				ball.setBx(800);
-				ball.setBy(500);
-				ball.setMoveX(5);
-				ball.setMoveY(5);
-				paddle.setPx(900);
-				paddle.setPy(970);
+				ball.setBx(Constants.BALL_POS_X);
+				ball.setBy(Constants.BALL_POS_Y);
+				ball.setMoveX(Constants.BALL_VEL_X);
+				ball.setMoveY(Constants.BALL_VEL_Y);
+				paddle.setPx(Constants.PADDLE_POS_X);
+				paddle.setPy(Constants.PADDLE_POS_Y);
 				this.brick = new Brick(1);
 				this.clock = new Clock();
 				ball.registerBall();

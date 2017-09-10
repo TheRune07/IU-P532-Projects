@@ -11,35 +11,35 @@ public class Constants {
 		public static boolean PLAY = false;
 		
 		//Brick constants
-		public static int BRICK_HEIGHT = 30;
-		public static int BRICK_WIDTH = 50;
+		public static int BRICK_HEIGHT = 10;
+		public static int BRICK_WIDTH = 75;
 		public static int BRICK_ROW = 3;
 		public static int BRICK_COLUMN = 10;
 		public static int TOTAL_BRICKS = BRICK_ROW * BRICK_COLUMN;
 		public static Color BRICK_COLOR = Color.ORANGE;  
 		
 		//Ball Constants
-		public int BALL_POS_X = 120; 	//X-coordinate position of ball
-		public int BALL_POS_Y = 200;	//Y-coordinate position of ball
-		public int BALL_VEL_X = 1;	//Velocity on X-axis
-		public int BALL_VEL_Y = 1;	//Velocity on Y-axis
-		public Color BALL_COLOR = Color.RED;  //Ball Color
-		public int BALL_WIDTH = 25;
-		public int BALL_HEIGHT = 25;
+		public static int BALL_POS_X = 120; 	//X-coordinate position of ball
+		public static int BALL_POS_Y = 200;	//Y-coordinate position of ball
+		public static int BALL_VEL_X = 5;	//Velocity on X-axis
+		public static int BALL_VEL_Y = 5;	//Velocity on Y-axis
+		public static Color BALL_COLOR = Color.RED;  //Ball Color
+		public static int BALL_WIDTH = 25;
+		public static int BALL_HEIGHT = 25;
 		
 		//Paddle Constants
-		public int PADDLE_POS_X = 300;
-		public int PADDLE_POS_Y = BOARD_HEIGHT - 60;
-		public int PADDLE_WIDTH = 100;
-		public int PADDLE_HEIGHT = 20;
-		public Color PADDLE_COLOR = Color.GREEN;
+		public static int PADDLE_POS_X = 300;
+		public static int PADDLE_POS_Y = BOARD_HEIGHT - 60;
+		public static int PADDLE_WIDTH = 150;
+		public static int PADDLE_HEIGHT = 20;
+		public static Color PADDLE_COLOR = Color.GREEN;
 		
 		//Notifications
-		public int GAMEOVER_POS_X= 220;
-		public int GAMEOVER_POS_Y= 300;
+		public static int GAMEOVER_POS_X= 220;
+		public static int GAMEOVER_POS_Y= 300;
 		
-		public int WIN_POS_X= 200;
-		public int WIN_POS_Y= 300;
+		public static int WIN_POS_X= 200;
+		public static int WIN_POS_Y= 300;
 		
 		int getPosX()
 		{

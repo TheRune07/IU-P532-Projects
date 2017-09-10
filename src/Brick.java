@@ -11,8 +11,8 @@ public class Brick implements Sprite, Cloneable, Serializable {
 	
 	int[][] bricksX;
 	int[][] bricksY;
-	static final int BRICK_WIDTH = 75;
-	static final int BRICK_HEIGHT = 10;
+	static final int BRICK_WIDTH = Constants.BRICK_WIDTH;
+	static final int BRICK_HEIGHT = Constants.BRICK_HEIGHT;
 	Brick cloneBrick;
 	
 	Brick(Brick brick)
@@ -23,14 +23,14 @@ public class Brick implements Sprite, Cloneable, Serializable {
 	public Brick(int a)
 	{
 		if(a == 1){
-		bricksX = new int[6][19];
-		bricksY = new int[6][19];
+		bricksX = new int[Constants.BRICK_ROW][Constants.BRICK_COLUMN];
+		bricksY = new int[Constants.BRICK_ROW][Constants.BRICK_COLUMN];
 		
 		int brx = 0;
 		int bry = 0;
-		for(int i = 0; i < 6; i++) // put in initializeBricks
+		for(int i = 0; i < Constants.BRICK_ROW; i++) // put in initializeBricks
 		{
-			for(int j = 0; j < 19; j++)
+			for(int j = 0; j < Constants.BRICK_COLUMN; j++)
 			{
 				this.bricksX[i][j] = brx + 20;
 				this.bricksY[i][j] = bry + 40;
@@ -111,19 +111,19 @@ public class Brick implements Sprite, Cloneable, Serializable {
 	
 	public void brickCollide(Ball ball) 
 	{
-		for(int i = 0; i < 6; i++)
+		for(int i = 0; i < Constants.BRICK_ROW; i++)
 		{
-			for(int j = 0; j < 19; j++)
+			for(int j = 0; j < Constants.BRICK_COLUMN; j++)
 			{
 				if(bottomCollision(ball.getBx(), ball.getBy(), bricksX[i][j], bricksY[i][j])) {
-					ball.setMoveY(5);	
+					ball.setMoveY(Constants.BALL_VEL_Y);	
 					bricksX[i][j] = -1;
 					bricksY[i][j] = -1;
 					
 				}
 				
 				if(topCollision(ball.getBx(), ball.getBy(), bricksX[i][j], bricksY[i][j])) {
-					ball.setMoveY(-5);
+					ball.setMoveY(-(Constants.BALL_VEL_Y));
 					bricksX[i][j] = -1;
 					bricksY[i][j] = -1;
 				}
@@ -146,13 +146,13 @@ public class Brick implements Sprite, Cloneable, Serializable {
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		for(int i = 0; i < 6; i++)
+		for(int i = 0; i < Constants.BRICK_ROW; i++)
 		{
-			for(int j = 0; j < 19; j++)
+			for(int j = 0; j < Constants.BRICK_COLUMN; j++)
 			{
 				if(bricksX[i][j] != -1 && bricksX[i][j] != -1)
 				{
-					g2d.setColor(Color.ORANGE);
+					g2d.setColor(Constants.BRICK_COLOR);
 					g2d.fillRect(bricksX[i][j], bricksY[i][j], BRICK_WIDTH, BRICK_HEIGHT);
 				}
 			}

@@ -15,12 +15,12 @@ import java.util.Observer;
 public class Ball implements Observer, Sprite, Cloneable, Serializable
 
 {
-	int bx = 800;
-	int by = 500;
-	int moveX = 5;
-	int moveY = 5;
-	final int BALL_WIDTH = 25;
-	final int BALL_HEIGHT = 25;
+	int bx = Constants.BALL_POS_X;
+	int by = Constants.BALL_POS_Y;
+	int moveX = Constants.BALL_VEL_X;
+	int moveY = Constants.BALL_VEL_Y;
+	final int BALL_WIDTH = Constants.BALL_WIDTH;
+	final int BALL_HEIGHT = Constants.BALL_HEIGHT;
 	Ball cloneBall;
 	
 	Ball(int bx, int by, int moveX, int moveY)
@@ -54,21 +54,21 @@ public class Ball implements Observer, Sprite, Cloneable, Serializable
 		Paddle paddle = (Paddle) objects.get("Paddle");
 		
 		if(ball.getBx() == 0){
-			ball.setMoveX(5);
+			ball.setMoveX(Constants.BALL_VEL_X);
 		}
-		if(ball.getBx() == 1870){
-			ball.setMoveX(-5);
+		if(ball.getBx() == (Constants.BOARD_WIDTH - 50)){
+			ball.setMoveX(-(Constants.BALL_VEL_X));
 		}
 		if(ball.getBy() == 0){
-			ball.setMoveY(5);
+			ball.setMoveY(Constants.BALL_VEL_Y);
 		}
-		if(ball.getBy() == 1030){
+		if(ball.getBy() == Constants.BOARD_HEIGHT){
 			Breakout.gameIsOn = false;
 		}
 		
 		if((ball.getBx() >= paddle.getPx()) && (ball.getBx() <= paddle.getPx() + paddle.getPaddleWidth())
 				&& (ball.getBy() + BALL_HEIGHT >= paddle.getPy()) && ( ball.getBy() <= ball.getBy() + paddle.getPaddleHeight()))
-			ball.setMoveY(-5);
+			ball.setMoveY(-(Constants.BALL_VEL_Y));
 		
 	}
 	
@@ -93,7 +93,7 @@ public class Ball implements Observer, Sprite, Cloneable, Serializable
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		g2d.setColor(Color.RED);
+		g2d.setColor(Constants.BALL_COLOR);
         g2d.fillOval(bx, by, BALL_WIDTH, BALL_HEIGHT);
 	}
 	
