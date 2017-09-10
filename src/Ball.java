@@ -53,18 +53,8 @@ public class Ball implements Observer, Sprite, Cloneable, Serializable
 		Ball ball = (Ball) objects.get("Ball");
 		Paddle paddle = (Paddle) objects.get("Paddle");
 		
-		if(ball.getBx() == 0){
-			ball.setMoveX(Constants.BALL_VEL_X);
-		}
-		if(ball.getBx() == (Constants.BOARD_WIDTH - 50)){
-			ball.setMoveX(-(Constants.BALL_VEL_X));
-		}
-		if(ball.getBy() == 0){
-			ball.setMoveY(Constants.BALL_VEL_Y);
-		}
-		if(ball.getBy() == Constants.BOARD_HEIGHT){
-			Breakout.gameIsOn = false;
-		}
+		BallCommands ballCommands = new BallCommands(ball);
+		ballCommands.execute();
 		
 		if((ball.getBx() >= paddle.getPx()) && (ball.getBx() <= paddle.getPx() + paddle.getPaddleWidth())
 				&& (ball.getBy() + BALL_HEIGHT >= paddle.getPy()) && ( ball.getBy() <= ball.getBy() + paddle.getPaddleHeight()))

@@ -9,7 +9,8 @@ public class Paddle implements KeyListener, Sprite, Cloneable
 	int py = Constants.PADDLE_POS_Y;
 	final int PADDLE_WIDTH = Constants.PADDLE_WIDTH;
 	final int PADDLE_HEIGHT = Constants.PADDLE_HEIGHT;
-	
+	int key;
+
 	Paddle clonePaddle;
 	
 	Paddle(int px, int py)
@@ -18,11 +19,11 @@ public class Paddle implements KeyListener, Sprite, Cloneable
 		this.py = py;
 	}
 	
-	Paddle(Paddle paddle)
+	Paddle(Paddle paddle) 
 	{
 		clonePaddle = paddle;
 	}
-	
+
 	public Object clone() throws CloneNotSupportedException
 	{
 		return super.clone();	
@@ -31,24 +32,9 @@ public class Paddle implements KeyListener, Sprite, Cloneable
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		int key = arg0.getKeyCode();
-		if(px != 0)
-		{
-			if (key == 37) {
-				// moving the paddle left
-				px = px - 50;
-				
-			}
-		}
-		if(px != (Constants.BOARD_WIDTH - 170))
-		{
-			if (key == 39) {
-				// moving the paddle right
-				px = px + 50;
-			}
-		
-		}
-		
+		key = arg0.getKeyCode();
+		PaddleCommands paddleCommands = new PaddleCommands(this);
+		paddleCommands.execute();
 	}
 	@Override
 	public void keyReleased(KeyEvent arg0) {
@@ -97,6 +83,13 @@ public class Paddle implements KeyListener, Sprite, Cloneable
 		return PADDLE_HEIGHT;
 	}
 
-	
+	public int getKey() {
+		return key;
+	}
+
+	public void setKey(int key) {
+		this.key = key;
+	}
+
 	
 }

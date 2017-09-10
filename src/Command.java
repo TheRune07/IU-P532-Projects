@@ -2,6 +2,6 @@
 public interface Command 
 {
 	public void execute();
-	public void undo();
-	public void replay();
+	public Object undo();
+	public Object replay();
 }

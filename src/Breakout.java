@@ -1,4 +1,5 @@
 import java.awt.Button;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -121,7 +122,9 @@ public class Breakout extends JPanel implements ActionListener {
 		{ System.out.print("");
 			
 		if(replayCheck == 1)
-		{
+		{	
+			int gameIsOnFlag = 0, gameOverFlag = 0;
+			clock.pauseFlag = 1;
 			for(int i = 0; i < ballQueue.size(); i++)
 			{
 				try {
@@ -130,22 +133,35 @@ public class Breakout extends JPanel implements ActionListener {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				this.ball = ballQueue.poll();
-				this.paddle = paddleQueue.poll();
-				tempClock = clockQueue.poll();
+				BallCommands ballCommands = new BallCommands(ball);
+				PaddleCommands paddleCommands = new PaddleCommands(paddle);
+				BrickCommands brickCommands = new BrickCommands(brick);
+				ClockCommands clockCommands = new ClockCommands(clock);
+				
+				ball = (Ball) ballCommands.replay();
+				paddle = (Paddle) paddleCommands.replay();
+				brick = (Brick) brickCommands.replay();
+				tempClock = (Clock) clockCommands.replay();
 				this.clock.clockMinutes = tempClock.clockMinutes;
 				this.clock.clockSeconds = tempClock.clockSeconds;
-				this.brick = brickQueue.poll();
+				this.clock.clockMiliSecs = tempClock.clockMiliSecs;
 				try {
 					Thread.sleep(50);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				repaint();	//not working
+				repaint();	
 			}
 			breakLoop = 0;
 			this.addKeyListener(paddle);
+			if(gameIsOnFlag == 1 && gameOverFlag == 0)
+			{
+				gameIsOn = false;
+				repaint();
+			}
+			replayCheck = 0;
+			clock.pauseFlag = 0;
 		}
 
 
@@ -161,7 +177,7 @@ public class Breakout extends JPanel implements ActionListener {
 					ball.moveBall();
 			
 					brick.brickCollide(ball);
-					storeInstance(ball, paddle, clock, brick);	//clone objects before calling this
+					storeInstance(ball, paddle, clock, brick);	
 					observable = new BreakoutObservable(paddle, ball);
 					observable.notifyObservers();
 			
@@ -241,29 +257,25 @@ public class Breakout extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-		if(e.getSource() == pause)
-		{
-			if(undoCheck == 1){
+		if (e.getSource() == pause) {
+			if (undoCheck == 1) {
 				breakLoop = 0;
+				clock.pauseFlag = 0;
 				pause.setText("pause");
 				undoCheck = 0;
+			} else {
+				pauseChecker++;
+				if (pauseChecker % 2 == 0) {
+					breakLoop = 0;
+					pause.setText("Pause");
+					clock.pauseFlag = 0;
+				} else {
+					breakLoop = 1;
+					pause.setText("Resume");
+					clock.pauseFlag = 1;
+				}
 			}
-			else{
-			pauseChecker++;
-			if(pauseChecker % 2 == 0)
-			{
-				breakLoop = 0;
-				pause.setText("Pause");
-				clock.pauseFlag = 0;
-			}
-			else
-			{
-				breakLoop = 1;
-				pause.setText("Resume");
-				clock.pauseFlag = 1;
-			}
-		}}
-	
+		}
 		
 		else if(e.getSource() == start)
 		{	
@@ -300,13 +312,21 @@ public class Breakout extends JPanel implements ActionListener {
 		else if(e.getSource() == undo)
 		{
 			breakLoop = 1;
-			this.ball = ballObjects.pop();
-			this.brick = brickObjects.pop();
-			this.paddle = paddleObjects.pop();
-			tempClock = clockObjects.pop();
+			BallCommands ballCommands = new BallCommands(ball);
+			PaddleCommands paddleCommands = new PaddleCommands(paddle);
+			BrickCommands brickCommands = new BrickCommands(brick);
+			ClockCommands clockCommands = new ClockCommands(clock);
+			
+			ball = (Ball) ballCommands.undo();
+			paddle = (Paddle) paddleCommands.undo();
+			brick = (Brick) brickCommands.undo();
+			tempClock = (Clock) clockCommands.undo();
 			this.clock.clockMinutes = tempClock.clockMinutes;
 			this.clock.clockSeconds = tempClock.clockSeconds;
+			this.clock.clockMiliSecs = tempClock.clockMiliSecs;
+			clock.pauseFlag = 1;
 			this.repaint();	
+			
 			undoCheck = 1;
 			pause.setText("Resume");
 			this.addKeyListener(paddle);

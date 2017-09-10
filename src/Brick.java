@@ -20,27 +20,15 @@ public class Brick implements Sprite, Cloneable, Serializable {
 		cloneBrick = brick;
 	}
 	
-	public Brick(int a)
-	{
-		if(a == 1){
-		bricksX = new int[Constants.BRICK_ROW][Constants.BRICK_COLUMN];
-		bricksY = new int[Constants.BRICK_ROW][Constants.BRICK_COLUMN];
-		
-		int brx = 0;
-		int bry = 0;
-		for(int i = 0; i < Constants.BRICK_ROW; i++) // put in initializeBricks
-		{
-			for(int j = 0; j < Constants.BRICK_COLUMN; j++)
-			{
-				this.bricksX[i][j] = brx + 20;
-				this.bricksY[i][j] = bry + 40;
-				brx = brx + 100;
-			}
-			brx = 0;
-			bry = bry +40;
-		}}
+	public Brick(int a) {
+		if (a == 1) {
+			bricksX = new int[Constants.BRICK_ROW][Constants.BRICK_COLUMN];
+			bricksY = new int[Constants.BRICK_ROW][Constants.BRICK_COLUMN];
+			BrickCommands brickCommands = new BrickCommands(this);
+			brickCommands.execute();
+		}
 	}
-	
+
 	public Object clone() throws CloneNotSupportedException 
 	{
 		Brick clone = new Brick(0);
@@ -172,6 +160,11 @@ public class Brick implements Sprite, Cloneable, Serializable {
 	void setBricksX(int i, int j, int x)
 	{
 		bricksX[i][j] = x;
+	}
+	
+	void setBricksY(int i, int j, int x)
+	{
+		bricksY[i][j] = x;
 	}
 	
 }
