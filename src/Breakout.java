@@ -115,6 +115,7 @@ public class Breakout extends JPanel implements ActionListener {
 	
 	public void startGame()
 	{		
+
 		
 		while(true)
 		{ System.out.print("");
@@ -147,6 +148,7 @@ public class Breakout extends JPanel implements ActionListener {
 			this.addKeyListener(paddle);
 		}
 
+
 		
 			if(breakLoop == 0)
 			{
@@ -154,7 +156,7 @@ public class Breakout extends JPanel implements ActionListener {
 				{
 					if(breakLoop == 1)
 					{
-						break;
+						break;	// break the while(gameIsOn) loop?
 					}
 					ball.moveBall();
 			
@@ -176,8 +178,11 @@ public class Breakout extends JPanel implements ActionListener {
 						e.printStackTrace();
 					}
 					repaint();
+
 				}
 			}
+
+
 			if(breakLoop != 1)
 			{
 				ball.unregisterBall();
