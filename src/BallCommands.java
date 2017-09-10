@@ -33,7 +33,7 @@ public class BallCommands implements Command
 	@Override
 	public Object replay() {
 		// TODO Auto-generated method stub
-		ball = Breakout.ballQueue.poll();
+		ball = Breakout.ballQueue.get(Breakout.counter);
 		return ball;
 	}
 

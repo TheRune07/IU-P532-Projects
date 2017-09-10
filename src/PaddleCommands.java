@@ -38,7 +38,8 @@ public class PaddleCommands implements Command {
 	@Override
 	public Object replay() {
 		// TODO Auto-generated method stub
-		paddle = Breakout.paddleQueue.poll();
+		//paddle = Breakout.paddleQueue.poll();
+		paddle = Breakout.paddleQueue.get(Breakout.counter);
 		return paddle;
 	}
 

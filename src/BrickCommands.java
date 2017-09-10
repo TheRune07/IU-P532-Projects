@@ -36,7 +36,8 @@ public class BrickCommands implements Command {
 	@Override
 	public Object replay() {
 		// TODO Auto-generated method stub
-		brick = Breakout.brickQueue.poll();
+		brick = Breakout.brickQueue.get(Breakout.counter);
+//		brick = Breakout.brickitr.next();
 		return brick;
 	}
 

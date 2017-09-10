@@ -35,7 +35,7 @@ public class ClockCommands implements Command {
 	@Override
 	public Object replay() {
 		// TODO Auto-generated method stub
-		clock = Breakout.clockQueue.poll();
+		clock = Breakout.clockQueue.get(Breakout.counter);
 		return clock;
 	}
 
