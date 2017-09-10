@@ -40,6 +40,7 @@ public class Breakout extends JPanel implements ActionListener {
 	static int breakLoop = 1; 
 	int play = 0, pauseChecker = 0, startChecker = 0, undoCheck = 0;
 	Clock tempClock = new Clock();
+	BreakoutObservable observable;
 	
 	Breakout()
 	{
@@ -92,7 +93,6 @@ public class Breakout extends JPanel implements ActionListener {
 		paddle.draw(g2d);	
 		//drawing ball
 		ball.draw(g2d);
-		//g2d.fillOval(ball.getBx(), ball.getBy(), 25, 25);
 		
 		g.setFont(new Font("TimesRoman", Font.BOLD, 20));
 		clock.draw(g2d);
@@ -113,7 +113,7 @@ public class Breakout extends JPanel implements ActionListener {
 		}
 	}
 	
-	public void startGame(Ball ball, Paddle paddle, Brick brick, Clock clock)
+	public void startGame()
 	{		
 		while(true)
 		{ System.out.print("");
@@ -130,7 +130,7 @@ public class Breakout extends JPanel implements ActionListener {
 			
 					brick.brickCollide(ball);
 					storeInstance(ball, paddle, clock, brick);	//clone objects before calling this
-					BreakoutObservable observable = new BreakoutObservable(paddle);
+					observable = new BreakoutObservable(paddle, ball);
 					observable.notifyObservers();
 			
 					if(checkWin(brick))
@@ -210,6 +210,8 @@ public class Breakout extends JPanel implements ActionListener {
 		{
 			if(undoCheck == 1){
 				breakLoop = 0;
+				pause.setText("pause");
+				undoCheck = 0;
 			}
 			else{
 			pauseChecker++;
@@ -238,6 +240,7 @@ public class Breakout extends JPanel implements ActionListener {
 			}
 			else
 			{
+				observable.deleteObservers();
 				ball.setBx(800);
 				ball.setBy(500);
 				ball.setMoveX(5);
@@ -271,6 +274,8 @@ public class Breakout extends JPanel implements ActionListener {
 			this.repaint();	
 			undoCheck = 1;
 			pause.setText("Resume");
+			this.addKeyListener(paddle);
+			observable = new BreakoutObservable(paddle, ball);
 		}
 		
 		else if(e.getSource() == replay)
