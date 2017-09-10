@@ -1,18 +1,24 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
 
-public class Ball implements Observer, Sprite, Cloneable
+public class Ball implements Observer, Sprite, Cloneable, Serializable
 
 {
 	int bx = Constants.BALL_POS_X;
 	int by = Constants.BALL_POS_Y;
 	int moveX = Constants.BALL_VEL_X;
-	int moveY =Constants.BALL_VEL_Y;
+	int moveY = Constants.BALL_VEL_Y;
 	final int BALL_WIDTH = Constants.BALL_WIDTH;
 	final int BALL_HEIGHT = Constants.BALL_HEIGHT;
 	Ball cloneBall;
@@ -38,29 +44,31 @@ public class Ball implements Observer, Sprite, Cloneable
 	public Object clone() throws CloneNotSupportedException
 	{
 		return super.clone();	
-	}
+	}	
 	
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		Paddle paddle = (Paddle) arg;
+		HashMap<String, Object> objects = (HashMap<String, Object>)arg;
+		Ball ball = (Ball) objects.get("Ball");
+		Paddle paddle = (Paddle) objects.get("Paddle");
 		
-		if(bx == 0){
-			moveX = 10;
+		if(ball.getBx() == 0){
+			ball.setMoveX(Constants.BALL_VEL_X);
 		}
-		if(bx == Constants.BOARD_WIDTH-30){
-			moveX = -10;
+		if(ball.getBx() == (Constants.BOARD_WIDTH - 50)){
+			ball.setMoveX(-(Constants.BALL_VEL_X));
 		}
-		if(by == 0){
-			moveY = 10;
+		if(ball.getBy() == 0){
+			ball.setMoveY(Constants.BALL_VEL_Y);
 		}
-		if(by == Constants.BOARD_HEIGHT){
+		if(ball.getBy() == Constants.BOARD_HEIGHT){
 			Breakout.gameIsOn = false;
 		}
 		
-		if((bx >= paddle.getPx()) && (bx <= paddle.getPx() + paddle.getPaddleWidth())
-				&& (by + BALL_HEIGHT >= paddle.getPy()) && ( by <= by + paddle.getPaddleHeight()))
-			moveY = -10;
+		if((ball.getBx() >= paddle.getPx()) && (ball.getBx() <= paddle.getPx() + paddle.getPaddleWidth())
+				&& (ball.getBy() + BALL_HEIGHT >= paddle.getPy()) && ( ball.getBy() <= ball.getBy() + paddle.getPaddleHeight()))
+			ball.setMoveY(-(Constants.BALL_VEL_Y));
 		
 	}
 	
@@ -78,7 +86,6 @@ public class Ball implements Observer, Sprite, Cloneable
 	
 	public void moveBall()
 	{
-		// I am changing these values temporarily 
 		bx = bx + moveX;
 		by = by + moveY;
 	}
@@ -86,7 +93,7 @@ public class Ball implements Observer, Sprite, Cloneable
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		g2d.setColor(Color.RED);
+		g2d.setColor(Constants.BALL_COLOR);
         g2d.fillOval(bx, by, BALL_WIDTH, BALL_HEIGHT);
 	}
 	

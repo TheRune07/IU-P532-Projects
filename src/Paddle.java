@@ -40,7 +40,7 @@ public class Paddle implements KeyListener, Sprite, Cloneable
 				
 			}
 		}
-		if(px < Constants.BOARD_WIDTH-120)
+		if(px != (Constants.BOARD_WIDTH - 170))
 		{
 			if (key == 39) {
 				// moving the paddle right
@@ -63,7 +63,7 @@ public class Paddle implements KeyListener, Sprite, Cloneable
 	
 	@Override
 	public void draw(Graphics2D g2d) {
-		g2d.setColor(Color.GREEN);
+		g2d.setColor(Constants.PADDLE_COLOR);
         g2d.fillRect(px,py,PADDLE_WIDTH,PADDLE_HEIGHT);
 	}
 	
