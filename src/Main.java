@@ -17,7 +17,7 @@ public class Main
 	{
 //		final int FRAME_WIDTH = 1920;
 //		final int FRAME_HEIGHT = 1030;
-		logger.debug("Testing to check if log4j working fine");
+		//logger.debug("Testing to check if log4j working fine");
 		
 		final int FRAME_WIDTH = Constants.BOARD_WIDTH;
 		final int FRAME_HEIGHT = Constants.BOARD_HEIGHT;

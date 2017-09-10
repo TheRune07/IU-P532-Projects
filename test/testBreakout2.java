@@ -7,7 +7,7 @@ import java.io.PrintStream;
 import org.junit.Before;
 import org.junit.Test;
 
-public class testBreakout {
+public class testBreakout2 {
 	/*-------------------------------------
 	 * Steps:
 	 * Set expected values for the given method
