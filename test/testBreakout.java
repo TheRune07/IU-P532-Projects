@@ -10,25 +10,19 @@ import org.junit.Test;
 
 public class testBreakout {
 	/*-------------------------------------
-	Set expected values for the given method
-	Create test object and run testable method to get actual value
-	Compare actual value with expected value
-	If test fails, examine and fix testable method or Junit test until test passed
+	 * Steps:
+	 * Set expected values for the given method
+	 * Create test object and run testable method to get actual value
+	 * Compare actual value with expected value
+	 * If test fails, examine and fix testable method or Junit test until test passed
 	-------------------------------------*/
 	
 	private Ball ball;
 	private Brick brick;
 	private Paddle paddle;
 	private Clock clock;
-	private JButton replay, undo, pause, start;
-	private static Stack<Ball> ballObjects;
-	private static Stack<Paddle> paddleObjects;
-	private static Stack<Clock> clockObjects;
-	private static Stack<Brick> brickObjects;
-	private static int breakLoop = 1; 
-	private static boolean gameIsOn = true;
-	private static int win = 0;
-	private int play = 0, pauseChecker = 0, startChecker = 0;
+	
+	
 	
 	private Breakout breakout;
 	
@@ -44,6 +38,7 @@ public class testBreakout {
 
 	@Test
 	public void testStartGame() {
+		// TODO How?
 		fail("Not yet implemented");
 	}
 
@@ -56,12 +51,27 @@ public class testBreakout {
 
 	@Test
 	public void testStoreInstance() {
-		fail("Not yet implemented");
+		breakout.storeInstance(ball, paddle, clock, brick);
+		assertTrue(Breakout.ballObjects.contains(ball));
+		assertTrue(Breakout.paddleObjects.contains(paddle));
+		assertTrue(Breakout.brickObjects.contains(brick));
+		assertTrue(Breakout.clockObjects.contains(clock));
+		
 	}
 
 	@Test
 	public void testActionPerformed() {
-		fail("Not yet implemented");
+		// pause button test
+		breakout.pause.doClick();
+		assertEquals(breakout.pauseChecker, 1);
+		// start/restart button test
+		breakout.start.doClick();
+		assertEquals(breakout.startChecker, 1);
+		// TODO undo
+		breakout.undo.doClick();
+		// TODO replay
+		breakout.replay.doClick();
+		
 	}
 
 }
